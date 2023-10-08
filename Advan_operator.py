@@ -85,12 +85,8 @@ def split_neighorhood_device_home_areas(sqlite_fname, np_df):
     remove_table_all_rows(sqlite_fname, table_name='device_home_areas')
     sql_query =  "SELECT * FROM CBG_index;"
     CBG_df = pd.read_sql_query(sql_query, conn)
-    # print(CBG_df.columns)
-    # CBG_df = CBG_df[['AREA']].reset_index(drop=False)
-
 
     CBG_dict = CBG_df.set_index('AREA')['CBG_index'].to_dict()
-
 
     try:
         for idx, row in tqdm(np_df.iloc[:].iterrows()):
@@ -106,18 +102,24 @@ def split_neighorhood_device_home_areas(sqlite_fname, np_df):
 
             for index, (origin, stops) in enumerate(origins.items()):
                 try:
-                    origin_idx = CBG_dict[origin]
-                    destination_idx = CBG_dict[destination]
-                    print(origin, destination)
-                    print(origin_idx, destination_idx)
+                    origin_idx = CBG_dict.get(origin, "")
+                    destination_idx = CBG_dict.get(destination, "")
+                    if origin_idx == "":
+                        print(f"Skip origin: {origin}")
+                        continue
+                    if destination_idx == "":
+                        print(f"Skip destination: {destination}")
+                        continue
                     update_stop_value(origin_idx=origin_idx, destination_idx=destination_idx, stop_increment=stops, conn=conn)
                 except Exception as e:
-                    # print("Error in split_neighorhood_device_home_areas():", e, idx, row)
+                    print("Error in split_neighorhood_device_home_areas():", e, idx, row)
                     continue
-        conn.commit()
+            if idx % 1000 == 0:
+                conn.commit()
     except:
+        conn.commit()
         conn.close()
-
+    conn.commit()
     conn.close()
 
 
