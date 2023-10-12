@@ -70,23 +70,23 @@ def remove_table_all_rows(db_path, table_name):
     # Close the connection
     conn.close()
 
-def update_stop_value(origin_idx, destination_idx, stop_increment, conn):
+def update_device_value(origin, destination, device_increment, conn):
     cursor = conn.cursor()
     cursor.execute('''
-    INSERT INTO device_home_areas(origin_idx, destination_idx, stop)
+    INSERT INTO device_home_areas(origin, destination, device)
     VALUES (?, ?, ?)
-    ON CONFLICT(origin_idx, destination_idx)
-    DO UPDATE SET stop=stop + ?;
-    ''', (origin_idx, destination_idx, stop_increment, stop_increment))
+    ON CONFLICT(origin, destination)
+    DO UPDATE SET device=device + ?;
+    ''', (origin, destination, device_increment, device_increment))
 
 # Split monthly Neighborhood Patterns columns to SQLite table
 def split_neighorhood_device_home_areas(sqlite_fname, np_df):
     conn = sqlite3.connect(sqlite_fname)
     remove_table_all_rows(sqlite_fname, table_name='device_home_areas')
-    sql_query =  "SELECT * FROM CBG_index;"
-    CBG_df = pd.read_sql_query(sql_query, conn)
+    # sql_query =  "SELECT * FROM CBG_index;"
+    # CBG_df = pd.read_sql_query(sql_query, conn)
 
-    CBG_dict = CBG_df.set_index('AREA')['CBG_index'].to_dict()
+    # CBG_dict = CBG_df.set_index('AREA')['CBG_index'].to_dict()
 
     try:
         for idx, row in tqdm(np_df.iloc[:].iterrows()):
@@ -100,21 +100,22 @@ def split_neighorhood_device_home_areas(sqlite_fname, np_df):
                 continue
             origins = json.loads(device_home_areas_str)
 
-            for index, (origin, stops) in enumerate(origins.items()):
+            for index, (origin, device) in enumerate(origins.items()):
                 try:
-                    origin_idx = CBG_dict.get(origin, "")
-                    destination_idx = CBG_dict.get(destination, "")
-                    if origin_idx == "":
+                    # origin_idx = CBG_dict.get(origin, "")
+                    # destination_idx = CBG_dict.get(destination, "")
+                    if origin== "":
                         print(f"Skip origin: {origin}")
                         continue
-                    if destination_idx == "":
+                    if destination == "":
                         print(f"Skip destination: {destination}")
                         continue
-                    update_stop_value(origin_idx=origin_idx, destination_idx=destination_idx, stop_increment=stops, conn=conn)
+                    # update_stop_value(origin_idx=origin_idx, destination_idx=destination_idx, stop_increment=stops, conn=conn)
+                    update_device_value(origin=origin, destination=destination, device_increment=device, conn=conn)
                 except Exception as e:
                     print("Error in split_neighorhood_device_home_areas():", e, idx, row)
                     continue
-            if idx % 1000 == 0:
+            if idx % 100 == 0:
                 conn.commit()
     except:
         conn.commit()
@@ -137,10 +138,10 @@ def create_device_home_areas_table(sqlite_fname):
     cursor = conn.cursor()
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS device_home_areas (
-        origin_idx INTEGER NOT NULL,
-        destination_idx INTEGER NOT NULL,
-        stop INTEGER,
-        PRIMARY KEY (origin_idx, destination_idx)
+        origin TEXT  NOT NULL,
+        destination TEXT  NOT NULL,
+        device INTEGER,
+        PRIMARY KEY (origin, destination)
     );
     ''')
 
