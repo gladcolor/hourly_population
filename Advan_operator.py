@@ -80,13 +80,17 @@ def update_device_value(origin, destination, device_increment, conn):
     ''', (origin, destination, device_increment, device_increment))
 
 # Split monthly Neighborhood Patterns columns to SQLite table
-def split_neighorhood_device_home_areas(sqlite_fname, np_df):
+def split_neighorhood_device_home_areas(sqlite_fname, np_df, write_cnt=1000):
     conn = sqlite3.connect(sqlite_fname)
     remove_table_all_rows(sqlite_fname, table_name='device_home_areas')
     # sql_query =  "SELECT * FROM CBG_index;"
     # CBG_df = pd.read_sql_query(sql_query, conn)
-
     # CBG_dict = CBG_df.set_index('AREA')['CBG_index'].to_dict()
+
+    # save an extra CSV file, three columns
+    origin_list = []
+    destination_list = []
+    device_list = []
 
     try:
         for idx, row in tqdm(np_df.iloc[:].iterrows()):
@@ -115,7 +119,8 @@ def split_neighorhood_device_home_areas(sqlite_fname, np_df):
                 except Exception as e:
                     print("Error in split_neighorhood_device_home_areas():", e, idx, row)
                     continue
-            if idx % 100 == 0:
+            # write into the database in every write_cnt
+            if idx % write_cnt == 0:
                 conn.commit()
     except:
         conn.commit()
@@ -201,5 +206,15 @@ def create_neighborhood_patterns_table(sqlite_fname, np_df):
 
 def load_neighborhood_monthly_folder(folder,  extions=['gz'], verbose=True):
     all_files = get_all_files(root_dir=folder, extions=['gz'], verbose=verbose)
-    df = pd.concat([pd.read_csv(f) for f in all_files[:]])
+
+    target_files = []
+    for f in all_files:
+        basename = os.path.basename(f)
+        if basename.startswith('Neighborhood_Patterns_US'):
+            target_files.append(f)
+    print(f"Found {len(target_files)} Neighborhood_Patterns_US files: \n")
+    for f in target_files:
+        print(f)
+    print("Loading files...")
+    df = pd.concat([pd.read_csv(f) for f in target_files[:]])
     return df
