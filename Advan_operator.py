@@ -218,3 +218,26 @@ def load_neighborhood_monthly_folder(folder,  extions=['gz'], verbose=True):
     print("Loading files...")
     df = pd.concat([pd.read_csv(f) for f in target_files[:]])
     return df
+
+def load_monthly_home_panel(home_panel_fname, year, month):
+    '''
+
+    :param home_panel_fname:
+    :param year: e.g., 2022
+    :param month: e.g., 2
+    :return:
+    '''
+    try:
+        df = pd.read_csv(home_panel_fname,
+                     encoding='utf-16')
+    except:
+        df = pd.read_csv(home_panel_fname)
+    # return df
+    target_df = df.query(f"YEAR == {year}").query(f"MON == {month}").sort_values('CENSUS_BLOCK_GROUP')
+    target_df = target_df.dropna(subset=['NUMBER_DEVICES_RESIDING'])
+    target_df['NUMBER_DEVICES_RESIDING'] = target_df['NUMBER_DEVICES_RESIDING'].astype(int)
+    return target_df
+
+def get_destination():
+
+    pass
