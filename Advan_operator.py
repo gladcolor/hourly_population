@@ -11,7 +11,7 @@ import numpy as np
 import json
 import random
 import sqlite3
-
+import math
 
 def get_all_files(root_dir, contains=[], extions=['.gz'], verbose=True):
     found_files = []
@@ -241,3 +241,79 @@ def load_monthly_home_panel(home_panel_fname, year, month):
 def get_destination():
 
     pass
+
+
+def split_a_dictionary_column(np_df, origin_col, dest_col, value_name):
+     
+    origin_list = []
+    destination_list = []
+    device_list = []
+
+    new_df = pd.DataFrame()
+
+    try:
+        for idx, row in tqdm(np_df.iloc[:].iterrows()):
+            # print("row:", row)
+            destination = row[dest_col] 
+            device_home_areas_str = row[origin_col]
+            # print("device_home_areas_str:", device_home_areas_str)
+
+            if device_home_areas_str is None:
+                continue
+            if device_home_areas_str == "":
+                continue
+            origins = json.loads(device_home_areas_str)
+
+            for index, (origin, device) in enumerate(origins.items()):
+                try:
+                    if origin== "":
+                        print(f"Skip origin: {origin}")
+                        continue
+                    if destination == "":
+                        print(f"Skip destination: {destination}")
+                        continue
+                        
+                    origin_list.append(origin)
+                    destination_list.append(destination)
+                    device_list.append(int(device))
+                    
+                except Exception as e:
+                    print("Error in split_a_dictionary_column():", e, idx, row)
+                    
+        new_df['origin'] = origin_list
+        new_df['destination'] = destination_list
+        new_df[value_name] = device_list
+ 
+    except Exception as e:
+        print()
+
+    return new_df
+
+
+def add_multi_hour_stops(hour_arr, stay_hours):
+    new_arr = hour_arr.copy()
+    for h in range(stay_hours - 1):
+        h = h + 1
+        moved_arr = np.hstack((hour_arr[-h:], hour_arr[:len(hour_arr) - h]))
+        new_arr += moved_arr
+    return new_arr
+
+
+def _process_stop_by_each_hour_col(row, adjust_dwell_time=True):
+    row_arr = np.array(json.loads(row['STOPS_BY_EACH_HOUR']))
+    row_arr = row_arr.astype(np.int64)
+    if adjust_dwell_time:
+        stay_hours = math.ceil(row['MEDIAN_DWELL'] / 60)
+        row_arr = add_multi_hour_stops(hour_arr=row_arr, stay_hours=stay_hours)
+
+    return row_arr
+
+
+def adjust_stop_by_dwelling_time(np_df, adjust_dwell_time=True, clean_negative=True):
+
+    hourly_stop_arrs = np_df.iloc[:].apply(_process_stop_by_each_hour_col, args=(adjust_dwell_time,),axis=1)
+    hourly_stop_arr = np.stack(hourly_stop_arrs)
+    # print("sum of hourly_stop_arr before negative removal:", hourly_stop_arr.sum().sum())
+    if clean_negative:
+        hourly_stop_arr = np.abs(hourly_stop_arr)
+    return hourly_stop_arr
