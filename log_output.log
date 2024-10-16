@@ -1,0 +1,9 @@
+2024-10-16 16:18:34,780 - my_logger - INFO - Started...
+2024-10-16 16:53:10,018 - my_logger - INFO - Started...
+2024-10-16 16:55:16,232 - my_logger - INFO - RAW_STOP_COUNTS (billion): 2.369336026
+2024-10-16 16:58:54,664 - my_logger - INFO - Ratio: total_hourly_stop / RAW_STOP_COUNTS =  1.0
+2024-10-16 17:04:43,249 - my_logger - INFO - sum of non_adjusted_dwell_time_stop_CBG_arr (billion): 2.369336026
+2024-10-16 17:04:43,251 - my_logger - INFO - shape of non_adjusted_dwell_time_stop_CBG_arr: (217687, 744)
+2024-10-16 17:04:55,656 - my_logger - INFO - sum of adjusted_dwell_time_stop_CBG_arr (billion): 3.26981158
+2024-10-16 17:04:55,658 - my_logger - INFO - sum of adjusted_dwell_time_stop_national_arr (billion): 3.26981158
+2024-10-16 17:04:55,659 - my_logger - INFO - shape of adjusted_dwell_time_stop_CBG_arr: (217687, 744)

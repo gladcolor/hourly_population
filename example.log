@@ -1,0 +1,6 @@
+2024-01-09 15:13:09,113 - DEBUG - my_function: Function started
+2024-01-09 15:13:09,116 - DEBUG - my_function: Function processing
+2024-01-09 15:13:09,116 - INFO - my_function: Function ended
+2024-01-09 15:18:13,439 - DEBUG - <module>: Debug message
+2024-01-09 15:18:13,440 - INFO - <module>: Info message
+2024-01-09 15:18:13,443 - WARNING - <module>: Warning message
