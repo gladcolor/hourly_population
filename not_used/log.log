@@ -1,0 +1,16 @@
+2024-01-09 14:53:23,150:INFO:my_function:Function started
+2024-01-09 14:53:23,150:INFO:my_function:Function ended
+2024-01-09 14:53:48,644:INFO:my_function:Function started
+2024-01-09 14:53:48,644:INFO:my_function:Function ended
+2024-01-09 14:54:04,205:INFO:my_function:Function started
+2024-01-09 14:54:04,205:INFO:my_function:Function ended
+2024-01-09 14:54:13,421:INFO:my_function:Function started
+2024-01-09 14:54:13,421:INFO:my_function:Function processing
+2024-01-09 14:54:13,421:INFO:my_function:Function ended
+2024-01-09 14:54:33,988:INFO:my_function:Function started
+2024-01-09 14:54:33,988:INFO:my_function:Function ended
+2024-01-09 14:59:14,716:INFO:<module>:Starting program
+2024-01-09 14:59:14,717:INFO:sample_function:This is an informational message from a function
+2024-01-09 14:59:14,717:INFO:<module>:Ending program
+2024-01-09 14:59:33,536:INFO:my_function:Function started
+2024-01-09 14:59:33,536:INFO:my_function:Function ended

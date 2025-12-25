@@ -1,3 +1,23 @@
+cd D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\Python_code
+d:
+conda activate geo
+python split_home_areas.py
+
+
+cd D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\Python_code
+d:
+conda activate geo
+python show_school_weekly.py
+
+cd D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\Python_code
+d:
+conda activate geo
+python show_school_hourly.py
+
+conda activate geo
+cd /bigdata/s0/hmn5304/hourly_population/Python_code
+jupyter lab
+
 conda activate geo
 cd D:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\Python_code
 D:

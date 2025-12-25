@@ -18,28 +18,36 @@ import matplotlib.pyplot as plt
 import Advan_operator as ad_op  
 
 
-data_path = r'E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\adjusted_negative_hourly_population'
+# data_path = r'E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\adjusted_negative_hourly_population'
 # save_path = r'E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\adjusted_negative_hourly_population\maps' 
-save_path = r'E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\adjusted_negative_hourly_population' 
+# save_path = r'E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\adjusted_negative_hourly_population' 
+
+data_path = r'D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\hourly_results'
+save_path = r'D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\hourly_results\maps' 
+
+os.makedirs(save_path, exist_ok=True)
+os.makedirs(os.path.join(save_path, 'place_plots'), exist_ok=True)
+
+
 
 
 years = [2022]
-months = list(range(1, 13))
+months = list(range(1, 2))
 
-landscan_daytime_fname =   r"E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test\Landscan_daytime_2021_CBG.csv"
-landscan_nighttime_fname = r"E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test\Landscan_nighttime_2021_CBG.csv"
+landscan_daytime_fname =   r"D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\data\Landscan_daytime_2021_CBG.csv"
+landscan_nighttime_fname = r"D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\data\Landscan_nighttime_2021_CBG.csv"
 
 # hourly_popu_fname = fr"D:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test_2024_home_panel_dell_add_stop_factor\CBG_population_hourly_{year}{month:02}.csv"
-ACS_file = r"E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_data\Safegraph_bias\cbg_acs_2019_county_tract_new20230929_cleaned.csv"
-CBG_place_fname = r'E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\vectors\CBG_place.gpkg'
+ACS_file = r"D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\data\cbg_acs_2019_county_tract_new20230929_cleaned.csv"
+CBG_place_fname = r'D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\data\CBG_place.gpkg'
 
 # desktop 2018
-landscan_fname = r"E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test\Landscan_daytime_2021_CBG.csv"
+# landscan_fname = r"E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test\Landscan_daytime_2021_CBG.csv"
 # hourly_popu_fname = fr"E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test_2024_home_panel_dell_add_stop_factor\CBG_population_hourly_{year}{month:02}.csv"
 # hourly_popu_fname = fr"E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\adjusted_negative_hourly_population\CBG_population_hourly_{year}{month:02}.csv"
 # hourly_popu_fname = fr"E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test_2024_home_panel_dell_add_stop_factor\CBG_population_hourly_{year}{month:02}.csv"
 
-CBG_2019_fname = r"E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\blockgoups2019.zip"
+CBG_2019_fname = r"D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\data\blockgroups2019.zip"
 
 
 landscan_day_df = pd.read_csv(landscan_daytime_fname, dtype={"GEOID":str}, usecols=['GEOID', 'SUM']).rename(columns={"SUM": "landscan_day", "GEOID":"CBG"}).set_index("CBG")
@@ -50,23 +58,23 @@ ACS_df = ACS_df.merge(landscan_day_df, left_index=True, right_index=True).merge(
 
 
 CBG_place_gdf = gpd.read_file(CBG_place_fname)
-
 df_list = []
 for year in years:
     for month in months:
-        hourly_popu_fname = fr"E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\adjusted_negative_hourly_population\CBG_population_hourly_{year}{month:02}.csv"
+        hourly_popu_fname = fr"D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\hourly_results\CBG_population_hourly_{year}{month:02}.csv"
         print("Loading:", hourly_popu_fname)
-        df = pd.read_csv(hourly_popu_fname, dtype={'CBG':str}).set_index('CBG').astype(np.int16)
+        df = pd.read_csv(hourly_popu_fname, dtype={'CBG':str}).set_index('CBG').astype(np.int64)
         df_list.append(df)
         # break
         
-all_df = pd.concat(df_list, axis=1)
+# all_df = pd.concat(df_list, axis=1)
+all_df = df
 df_list = []
 
 
-hourly_index = pd.date_range(start='2022-01-01', end='2022-12-31 23:00:00', freq='H')
-all_df.index = all_df.index.str.zfill(12)
-all_df.columns = hourly_index 
+# hourly_index = pd.date_range(start='2022-01-01', end='2022-12-31 23:00:00', freq='H')
+# all_df.index = all_df.index.str.zfill(12)
+# all_df.columns = hourly_index 
 
 
 CBG_place_hourly_gdf = CBG_place_gdf.merge(ACS_df, right_index=True,  left_on='CBG').merge(all_df, right_index=True, left_on='CBG')
