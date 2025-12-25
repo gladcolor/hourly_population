@@ -121,10 +121,10 @@ for placekey in tqdm(all_school_keys[:], total=len(all_school_keys)):
     # placekey = r'zzw-222@63v-zsx-dqf'  # many half days, good example for testing
     # placekey = r'zzw-222@63f-kjp-fpv'  # mess parent drop-off/pickup pattern 
     # placekey = r'zzw-222@8gm-zc9-649'  # Error processing placekey zzw-222@8gm-zc9-649: cannot convert float NaN to integer
-    placekey = r'222-222@5s8-25b-nqz'  # for paper figures
+    # placekey = r'222-222@5s8-25b-nqz'  # for paper figures
 
     try:
-        files = glob(os.path.join(save_dir, f"*_{placekey}.png"))
+        # files = glob(os.path.join(save_dir, f"*_{placekey}.png"))
         # if len(files) > 0:
         #     print(f"Hourly plot already exists for {placekey}, skipping.")
         #     continue
