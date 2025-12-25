@@ -1,1 +1,0 @@
-Manhattan, NY, had a almost 0 popultion in 8:00 AM and 15:00 PM with unknown reason. 2025.12.20, Huan: because setting CBG population cell dtype to int.16 tos save memory, but the maximum cell value is large than max(int.16), the 
