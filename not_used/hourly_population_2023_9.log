@@ -1,0 +1,246 @@
+2024-01-09 15:47:35,652 - INFO - <module>: Processing: 2023, 9
+2024-01-09 15:47:47,402 - INFO - <module>: Processing: 2023, 9
+2024-01-09 15:47:53,920 - INFO - <module>: RAW_STOP_COUNTS (billion): 0.423892267
+2024-01-09 15:49:17,885 - INFO - <module>: Processing: 2023, 9
+2024-01-09 15:49:26,155 - INFO - <module>: RAW_STOP_COUNTS (billion): 0.423892267
+2024-01-09 15:54:58,396 - INFO - <module>: Processing: 2023, 9
+2024-01-09 15:54:58,397 - INFO - get_all_files: Found target files: 10
+2024-01-09 15:54:58,397 - INFO - get_all_files: The top 5 and bottom 5 files:
+2024-01-09 15:54:58,398 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:54:58,400 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-1-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:54:58,401 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-2-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:54:58,401 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-3-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:54:58,402 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-4-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:54:58,402 - INFO - get_all_files: ...
+2024-01-09 15:54:58,402 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-5-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:54:58,403 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-6-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:54:58,403 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-7-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:54:58,404 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-8-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:54:58,405 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-9-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:54:58,405 - INFO - load_neighborhood_monthly_folder: Found 1 Neighborhood_Patterns_US files: 
+
+2024-01-09 15:54:58,406 - INFO - load_neighborhood_monthly_folder: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:54:58,406 - INFO - load_neighborhood_monthly_folder: Loading files...
+2024-01-09 15:55:05,217 - INFO - <module>: RAW_STOP_COUNTS (billion): 0.423892267
+2024-01-09 15:55:53,771 - INFO - <module>: Processing: 2023, 9
+2024-01-09 15:55:53,773 - INFO - get_all_files: Found target files: 10
+2024-01-09 15:55:53,775 - INFO - get_all_files: The top 5 and bottom 5 files:
+2024-01-09 15:55:53,775 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:55:53,776 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-1-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:55:53,777 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-2-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:55:53,778 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-3-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:55:53,779 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-4-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:55:53,780 - INFO - get_all_files: ...
+2024-01-09 15:55:53,781 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-5-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:55:53,782 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-6-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:55:53,784 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-7-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:55:53,784 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-8-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:55:53,785 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-9-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:55:53,786 - INFO - load_neighborhood_monthly_folder: Testing...load one file only. Exited.
+2024-01-09 15:55:53,787 - INFO - load_neighborhood_monthly_folder: Found 1 Neighborhood_Patterns_US files: 
+
+2024-01-09 15:55:53,787 - INFO - load_neighborhood_monthly_folder: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:55:53,788 - INFO - load_neighborhood_monthly_folder: Loading files...
+2024-01-09 15:56:00,587 - INFO - <module>: RAW_STOP_COUNTS (billion): 0.423892267
+2024-01-09 15:56:02,319 - INFO - <module>: Ratio: total_hourly_stop / RAW_STOP_COUNTS = 0.9891134248976521
+2024-01-09 15:58:35,228 - INFO - <module>: Processing: 2023, 9
+2024-01-09 15:58:35,230 - INFO - get_all_files: Found target files: 10
+2024-01-09 15:58:35,231 - INFO - get_all_files: The top 5 and bottom 5 files:
+2024-01-09 15:58:35,232 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:58:35,233 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-1-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:58:35,235 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-2-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:58:35,236 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-3-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:58:35,237 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-4-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:58:35,239 - INFO - get_all_files: ...
+2024-01-09 15:58:35,239 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-5-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:58:35,240 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-6-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:58:35,241 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-7-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:58:35,243 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-8-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:58:35,243 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-9-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:58:35,244 - INFO - load_neighborhood_monthly_folder: Testing...load one file only. Exited.
+2024-01-09 15:58:35,245 - INFO - load_neighborhood_monthly_folder: Found 1 Neighborhood_Patterns_US files: 
+
+2024-01-09 15:58:35,246 - INFO - load_neighborhood_monthly_folder: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 15:58:35,247 - INFO - load_neighborhood_monthly_folder: Loading files...
+2024-01-09 15:58:42,264 - INFO - <module>: RAW_STOP_COUNTS (billion): 0.423892267
+2024-01-09 15:58:42,264 - INFO - <module>: Check the total of the hourly stops...
+2024-01-09 15:58:42,277 - INFO - <module>: Usually are 98.9% of the sum of STOPS_BY_EACH_HOUR column.
+2024-01-09 15:58:44,047 - INFO - <module>: Ratio: total_hourly_stop / RAW_STOP_COUNTS = 0.9891134248976521
+2024-01-09 16:07:06,427 - INFO - <module>: Processing: 2023, 9
+2024-01-09 16:07:06,430 - INFO - get_all_files: Found target files: 10
+2024-01-09 16:07:06,432 - INFO - get_all_files: The top 5 and bottom 5 files:
+2024-01-09 16:07:06,434 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:07:06,435 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-1-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:07:06,436 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-2-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:07:06,438 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-3-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:07:06,439 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-4-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:07:06,441 - INFO - get_all_files: ...
+2024-01-09 16:07:06,443 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-5-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:07:06,446 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-6-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:07:06,447 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-7-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:07:06,448 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-8-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:07:06,450 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-9-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:07:06,451 - INFO - load_neighborhood_monthly_folder: Testing...load one file only. Exited.
+2024-01-09 16:07:06,453 - INFO - load_neighborhood_monthly_folder: Found 1 Neighborhood_Patterns_US files: 
+
+2024-01-09 16:07:06,455 - INFO - load_neighborhood_monthly_folder: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:07:06,456 - INFO - load_neighborhood_monthly_folder: Loading files...
+2024-01-09 16:07:13,361 - INFO - <module>: RAW_STOP_COUNTS (billion): 0.423892267
+2024-01-09 16:07:13,361 - INFO - <module>: Check the total of the hourly stops...
+2024-01-09 16:07:13,365 - INFO - <module>: Usually are 98.9% of the sum of STOPS_BY_EACH_HOUR column.
+2024-01-09 16:07:14,971 - INFO - <module>: Ratio: total_hourly_stop / RAW_STOP_COUNTS = 0.9891134248976521
+2024-01-09 16:07:14,971 - INFO - <module>: 
+2024-01-09 16:07:14,988 - INFO - <module>: Adjust the RAW_STOP_COUNTS by dwellling_time
+2024-01-09 16:07:14,990 - INFO - <module>: 
+2024-01-09 16:07:14,992 - INFO - <module>: If a stop dwelling > 60 minutes, we add a stop to the next hours.
+2024-01-09 16:07:14,994 - INFO - <module>: May increase 25% stops.
+2024-01-09 16:07:17,600 - INFO - <module>: sum of non_adjusted_dwell_time_stop_CBG_arr (billion): 0.419357206
+2024-01-09 16:07:17,600 - INFO - <module>: shape of non_adjusted_dwell_time_stop_CBG_arr: (22414, 720)
+2024-01-09 16:07:20,286 - INFO - <module>: sum of adjusted_dwell_time_stop_CBG_arr (billion): 0.443337694
+2024-01-09 16:07:20,286 - INFO - <module>: sum of adjusted_dwell_time_stop_national_arr (billion): 0.443337694
+2024-01-09 16:07:20,300 - INFO - <module>: shape of adjusted_dwell_time_stop_CBG_arr: (22414, 720)
+2024-01-09 16:15:51,257 - INFO - <module>: Processing: 2023, 9
+2024-01-09 16:15:51,260 - INFO - get_all_files: Found target files: 10
+2024-01-09 16:15:51,261 - INFO - get_all_files: The top 5 and bottom 5 files:
+2024-01-09 16:15:51,263 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:15:51,264 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-1-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:15:51,265 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-2-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:15:51,266 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-3-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:15:51,267 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-4-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:15:51,268 - INFO - get_all_files: ...
+2024-01-09 16:15:51,269 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-5-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:15:51,270 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-6-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:15:51,271 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-7-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:15:51,272 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-8-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:15:51,273 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-9-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:15:51,274 - INFO - load_neighborhood_monthly_folder: Testing...load one file only. Exited.
+2024-01-09 16:15:51,275 - INFO - load_neighborhood_monthly_folder: Found 1 Neighborhood_Patterns_US files: 
+
+2024-01-09 16:15:51,277 - INFO - load_neighborhood_monthly_folder: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:15:51,281 - INFO - load_neighborhood_monthly_folder: Loading files...
+2024-01-09 16:15:59,185 - INFO - <module>: RAW_STOP_COUNTS (billion): 0.423892267
+2024-01-09 16:15:59,185 - INFO - <module>: Check the total of the hourly stops...
+2024-01-09 16:15:59,200 - INFO - <module>: Usually are 98.9% of the sum of STOPS_BY_EACH_HOUR column.
+2024-01-09 16:16:01,145 - INFO - <module>: Ratio: total_hourly_stop / RAW_STOP_COUNTS = 0.9891134248976521
+2024-01-09 16:16:01,146 - INFO - <module>: 
+2024-01-09 16:16:01,146 - INFO - <module>: Adjust the RAW_STOP_COUNTS by dwellling_time
+2024-01-09 16:16:01,147 - INFO - <module>: 
+2024-01-09 16:16:01,148 - INFO - <module>: If a stop dwelling > 60 minutes, we add a stop to the next hours.
+2024-01-09 16:16:01,148 - INFO - <module>: May increase 25% stops.
+2024-01-09 16:16:03,770 - INFO - <module>: sum of non_adjusted_dwell_time_stop_CBG_arr (billion): 0.419357206
+2024-01-09 16:16:03,770 - INFO - <module>: shape of non_adjusted_dwell_time_stop_CBG_arr: (22414, 720)
+2024-01-09 16:16:08,169 - INFO - <module>: sum of adjusted_dwell_time_stop_CBG_arr (billion): 0.443337694
+2024-01-09 16:16:08,171 - INFO - <module>: sum of adjusted_dwell_time_stop_national_arr (billion): 0.443337694
+2024-01-09 16:16:08,172 - INFO - <module>: shape of adjusted_dwell_time_stop_CBG_arr: (22414, 720)
+2024-01-09 16:16:08,527 - INFO - <module>: sum of adjusted_dwell_time_stop_national_arr (billion): 0.0
+2024-01-09 16:17:45,276 - INFO - <module>: Processing: 2023, 9
+2024-01-09 16:17:45,277 - INFO - get_all_files: Found target files: 10
+2024-01-09 16:17:45,279 - INFO - get_all_files: The top 5 and bottom 5 files:
+2024-01-09 16:17:45,280 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:17:45,281 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-1-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:17:45,282 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-2-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:17:45,283 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-3-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:17:45,284 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-4-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:17:45,284 - INFO - get_all_files: ...
+2024-01-09 16:17:45,285 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-5-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:17:45,286 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-6-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:17:45,287 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-7-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:17:45,289 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-8-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:17:45,290 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-9-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:17:45,293 - INFO - load_neighborhood_monthly_folder: Testing...load one file only. Exited.
+2024-01-09 16:17:45,293 - INFO - load_neighborhood_monthly_folder: Found 1 Neighborhood_Patterns_US files: 
+
+2024-01-09 16:17:45,294 - INFO - load_neighborhood_monthly_folder: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-09 16:17:45,295 - INFO - load_neighborhood_monthly_folder: Loading files...
+2024-01-09 16:17:52,166 - INFO - <module>: RAW_STOP_COUNTS (billion): 0.423892267
+2024-01-09 16:17:52,167 - INFO - <module>: Check the total of the hourly stops...
+2024-01-09 16:17:52,168 - INFO - <module>: Usually are 98.9% of the sum of STOPS_BY_EACH_HOUR column.
+2024-01-09 16:17:53,769 - INFO - <module>: Ratio: total_hourly_stop / RAW_STOP_COUNTS = 0.9891134248976521
+2024-01-09 16:17:53,769 - INFO - <module>: 
+2024-01-09 16:17:53,781 - INFO - <module>: Adjust the RAW_STOP_COUNTS by dwellling_time
+2024-01-09 16:17:53,782 - INFO - <module>: 
+2024-01-09 16:17:53,782 - INFO - <module>: If a stop dwelling > 60 minutes, we add a stop to the next hours.
+2024-01-09 16:17:53,784 - INFO - <module>: May increase 25% stops.
+2024-01-09 16:17:56,389 - INFO - <module>: sum of non_adjusted_dwell_time_stop_CBG_arr (billion): 0.419357206
+2024-01-09 16:17:56,389 - INFO - <module>: shape of non_adjusted_dwell_time_stop_CBG_arr: (22414, 720)
+2024-01-09 16:17:59,047 - INFO - <module>: sum of adjusted_dwell_time_stop_CBG_arr (billion): 0.443337694
+2024-01-09 16:17:59,047 - INFO - <module>: sum of adjusted_dwell_time_stop_national_arr (billion): 0.443337694
+2024-01-09 16:17:59,056 - INFO - <module>: shape of adjusted_dwell_time_stop_CBG_arr: (22414, 720)
+2024-01-09 16:17:59,274 - INFO - <module>: sum of adjusted_dwell_time_stop_CBG_arr (billion): 0.443337694
+2024-01-09 16:17:59,275 - INFO - <module>: sum of adjusted_dwell_time_stop_national_arr (billion): 0.443337694
+2024-01-09 16:17:59,280 - INFO - <module>: Saved national hourly stop at: D:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test\adjusted_dwelling_time_stop_natinol_2023_09.csv
+2024-01-09 16:18:01,643 - INFO - <module>: Saved CBG hourly stop at: D:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test\adjusted_dwelling_time_stop_CBG_2023_09.csv
+2024-01-17 12:56:34,742 - INFO - <module>: Processing: 2023, 9
+2024-01-17 12:56:34,851 - INFO - get_all_files: Found target files: 10
+2024-01-17 12:56:34,853 - INFO - get_all_files: The top 5 and bottom 5 files:
+2024-01-17 12:56:34,855 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 12:56:34,856 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-1-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 12:56:34,857 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-2-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 12:56:34,859 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-3-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 12:56:34,860 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-4-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 12:56:34,861 - INFO - get_all_files: ...
+2024-01-17 12:56:34,862 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-5-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 12:56:34,863 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-6-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 12:56:34,865 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-7-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 12:56:34,866 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-8-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 12:56:34,867 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-9-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 12:56:34,869 - INFO - load_neighborhood_monthly_folder: Testing...load one file only. Exited.
+2024-01-17 12:56:34,869 - INFO - load_neighborhood_monthly_folder: Found 1 Neighborhood_Patterns_US files: 
+
+2024-01-17 12:56:34,870 - INFO - load_neighborhood_monthly_folder: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 12:56:34,871 - INFO - load_neighborhood_monthly_folder: Loading files...
+2024-01-17 12:56:42,200 - INFO - <module>: RAW_STOP_COUNTS (billion): 0.423892267
+2024-01-17 12:56:42,200 - INFO - <module>: Check the total of the hourly stops...
+2024-01-17 12:56:42,200 - INFO - <module>: Usually are 98.9% of the sum of STOPS_BY_EACH_HOUR column.
+2024-01-17 12:56:43,872 - INFO - <module>: Ratio: total_hourly_stop / RAW_STOP_COUNTS = 0.9891134248976521
+2024-01-17 12:56:43,872 - INFO - <module>: 
+2024-01-17 12:56:43,872 - INFO - <module>: Adjust the RAW_STOP_COUNTS by dwellling_time
+2024-01-17 12:56:43,872 - INFO - <module>: 
+2024-01-17 12:56:43,872 - INFO - <module>: If a stop dwelling > 60 minutes, we add a stop to the next hours.
+2024-01-17 12:56:43,881 - INFO - <module>: May increase 25% stops.
+2024-01-17 12:56:46,737 - INFO - <module>: sum of non_adjusted_dwell_time_stop_CBG_arr (billion): 0.419357206
+2024-01-17 12:56:46,737 - INFO - <module>: shape of non_adjusted_dwell_time_stop_CBG_arr: (22414, 720)
+2024-01-17 12:56:49,558 - INFO - <module>: sum of adjusted_dwell_time_stop_CBG_arr (billion): 0.443337694
+2024-01-17 12:56:49,558 - INFO - <module>: sum of adjusted_dwell_time_stop_national_arr (billion): 0.443337694
+2024-01-17 12:56:49,558 - INFO - <module>: shape of adjusted_dwell_time_stop_CBG_arr: (22414, 720)
+2024-01-17 12:56:49,788 - INFO - <module>: sum of adjusted_dwell_time_stop_CBG_arr (billion): 0.443337694
+2024-01-17 12:56:49,788 - INFO - <module>: sum of adjusted_dwell_time_stop_national_arr (billion): 0.443337694
+2024-01-17 12:56:49,811 - INFO - <module>: Saved national hourly stop at: D:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test\adjusted_dwelling_time_stop_natinol_2023_09.csv
+2024-01-17 12:56:52,251 - INFO - <module>: Saved CBG hourly stop at: D:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test\adjusted_dwelling_time_stop_CBG_2023_09.csv
+2024-01-17 13:10:13,309 - INFO - <module>: Processing: 2023, 9
+2024-01-17 13:10:13,312 - INFO - get_all_files: Found target files: 10
+2024-01-17 13:10:13,313 - INFO - get_all_files: The top 5 and bottom 5 files:
+2024-01-17 13:10:13,315 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 13:10:13,317 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-1-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 13:10:13,323 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-2-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 13:10:13,325 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-3-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 13:10:13,327 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-4-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 13:10:13,329 - INFO - get_all_files: ...
+2024-01-17 13:10:13,330 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-5-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 13:10:13,331 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-6-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 13:10:13,334 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-7-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 13:10:13,336 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-8-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 13:10:13,339 - INFO - get_all_files: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-9-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 13:10:13,342 - INFO - load_neighborhood_monthly_folder: Testing...load one file only. Exited.
+2024-01-17 13:10:13,343 - INFO - load_neighborhood_monthly_folder: Found 1 Neighborhood_Patterns_US files: 
+
+2024-01-17 13:10:13,344 - INFO - load_neighborhood_monthly_folder: F:\SafeGraph\Advan_2023_API\Neighborhood_Patterns\2023\09\01\Neighborhood_Patterns_US-0-DATE_RANGE_START-2023-09-01.csv.gz
+2024-01-17 13:10:13,346 - INFO - load_neighborhood_monthly_folder: Loading files...
+2024-01-17 13:10:20,449 - INFO - <module>: RAW_STOP_COUNTS (billion): 0.423892267
+2024-01-17 13:10:20,450 - INFO - <module>: Check the total of the hourly stops...
+2024-01-17 13:10:20,452 - INFO - <module>: Usually are 98.9% of the sum of STOPS_BY_EACH_HOUR column.
+2024-01-17 13:10:22,351 - INFO - <module>: Ratio: total_hourly_stop / RAW_STOP_COUNTS = 0.9891134248976521
+2024-01-17 13:10:22,353 - INFO - <module>: 
+2024-01-17 13:10:22,354 - INFO - <module>: Adjust the RAW_STOP_COUNTS by dwellling_time
+2024-01-17 13:10:22,356 - INFO - <module>: 
+2024-01-17 13:10:22,357 - INFO - <module>: If a stop dwelling > 60 minutes, we add a stop to the next hours.
+2024-01-17 13:10:22,359 - INFO - <module>: May increase 25% stops.
+2024-01-17 13:10:25,132 - INFO - <module>: sum of non_adjusted_dwell_time_stop_CBG_arr (billion): 0.419357206
+2024-01-17 13:10:25,136 - INFO - <module>: shape of non_adjusted_dwell_time_stop_CBG_arr: (22414, 720)
+2024-01-17 13:10:27,878 - INFO - <module>: sum of adjusted_dwell_time_stop_CBG_arr (billion): 0.443337694
+2024-01-17 13:10:27,879 - INFO - <module>: sum of adjusted_dwell_time_stop_national_arr (billion): 0.443337694
+2024-01-17 13:10:27,881 - INFO - <module>: shape of adjusted_dwell_time_stop_CBG_arr: (22414, 720)
+2024-01-17 13:10:28,161 - INFO - <module>: sum of adjusted_dwell_time_stop_CBG_arr (billion): 0.443337694
+2024-01-17 13:10:28,163 - INFO - <module>: sum of adjusted_dwell_time_stop_national_arr (billion): 0.443337694
+2024-01-17 13:10:28,166 - INFO - <module>: Saved national hourly stop at: D:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test\adjusted_dwelling_time_stop_natinol_2023_09.csv
+2024-01-17 13:10:30,714 - INFO - <module>: Saved CBG hourly stop at: D:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\hourly_map_test\adjusted_dwelling_time_stop_CBG_2023_09.csv

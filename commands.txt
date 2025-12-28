@@ -1,0 +1,74 @@
+cd D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\Python_code
+d:
+conda activate geo
+python split_home_areas.py
+
+
+cd D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\Python_code
+d:
+conda activate geo
+python show_school_weekly.py
+
+cd D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\Python_code
+d:
+conda activate geo
+python show_school_hourly.py
+
+conda activate geo
+cd /bigdata/s0/hmn5304/hourly_population/Python_code
+jupyter lab
+
+conda activate geo
+cd D:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\Python_code
+D:
+jupyter lab
+
+conda activate geo
+cd E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\Python_code
+E:
+jupyter lab
+
+
+
+conda activate geo
+cd /bigdata/s0/hmn5304/hourly_population/Python_code
+jupyter lab
+
+python Reorganize_safegraph.py
+
+
+conda config --prepend channels conda-forge
+conda  install  --strict-channel-priority geopandas  
+
+
+
+conda config --prepend channels conda-forge
+conda create -n street_mapping --strict-channel-priority geopandas jupyterlab
+
+conda install -c conda-forge geopandas
+
+
+conda create -n wildfire --strict-channel-priority wrf-python  
+
+conda install -c anaconda ipykernel
+python -m ipykernel install --user --name=geo
+
+jupyter labextension install @jupyter-widgets/jupyterlab-manager ipyvolume
+
+
+conda activate geo
+cd D:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\Python_code
+python download_openaq.py
+
+
+python Dewey_safegraph_download_v2.py
+
+
+
+3vK5X@?4vTov5)
+
+
+conda activate geo
+cd E:\OneDrive_PSU\OneDrive - The Pennsylvania State University\Research_doc\Wild_fire\Python_code
+E:
+python flating_population_mapping.py
