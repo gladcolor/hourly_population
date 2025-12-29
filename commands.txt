@@ -8,6 +8,17 @@ d:
 conda activate geo
 python split_home_areas.py
 
+rm -rf .git
+git init
+git add .
+git commit -m "Initial commit — clean history"
+git branch -M master     # rename to main if you want
+git remote add origin https://github.com/gladcolor/hourly_population.git
+git push -u --force origin master
+
+git add *.gz
+git commit -m "added hourly population of 2022-02"
+git push
 
 
 cd D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\Python_code

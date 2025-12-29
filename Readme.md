@@ -1,12 +1,20 @@
 
-This is the repository for the study of "Estimating Hourly Neighborhood Population Using Mobile Phone Data in the United States".
+This is the repository for the study of "Nationwide Hourly Population Mapping at the Neighborhood Scale in the United States Using Anchor-Calibrated Smartphone Mobility Data". More details will be released after the acception of the paper.
 
-# File usage
+Please contact the research team for any questions.
+
+# Hourly population dataset
+
+Link at Huggingface: [hourly_population_US](https://huggingface.co/datasets/gladcolor/hourly_population_US)
+
+The dataset contains hourly population for each US Census block groups in 2022, organized by county-month. 
+
+# Sourcecode file usage
 ## Data preprocessing
 `CSV_to_parpuet.ipynb`: Convert the Adan CSV data files to parquet files, which is more efficient for data processing.
 
 
-# Data analysis
+## Data analysis
 `show_school_hourly.ipynb`: Show the stable-attendance windows of high school POIs.
 
 `show_school_hourly.py`: Process all schools, and save the detected stable-attendance windows. 
@@ -22,7 +30,7 @@ This is the repository for the study of "Estimating Hourly Neighborhood Populati
 `Remove_negative.ipynb`: Remove the negative population CBG-hour cells. About 2% cell will have large estiamted outbounds, we set the cell as the a minimal value (10% of the ACS population), while redraw the outbound in the destinations. Need a further investigation for these large outbound and a better solution. 
 
 
-# Supporting file
+## Supporting file
 These contains functions for Jupyter notebooks. 
 
 `helper.py`: data processing functions.
