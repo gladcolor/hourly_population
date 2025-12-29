@@ -1,7 +1,13 @@
+git remote add origin https://github.com/gladcolor/hourly_population.git
+git branch -M master
+git push -u origin master
+
+
 cd D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\Python_code
 d:
 conda activate geo
 python split_home_areas.py
+
 
 
 cd D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\Python_code
