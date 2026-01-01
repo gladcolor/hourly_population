@@ -9,16 +9,9 @@
   <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css" />
 
   <!-- External Libraries (CDNs) -->
-  <!-- IMPORTANT: Load 3rd party libraries BEFORE ArcGIS JS to avoid "multipleDefine" AMD errors -->
-  
-  <!-- Pako for GZIP decompression -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
-  <!-- PapaParse for CSV parsing -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <!-- Plotly.js for Charts -->
   <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-
-  <!-- ArcGIS Maps SDK -->
   <script src="https://js.arcgis.com/4.29/"></script>
 
   <style>
@@ -34,15 +27,15 @@
     }
 
     #topBanner {
-      flex: 0 0 60px;
+      flex: 0 0 auto;
+      min-height: 60px;
+      padding: 10px 0;
       background: linear-gradient(135deg, #0079c1 0%, #004575 100%);
       color: white;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 1.5em;
-      font-weight: 600;
-      letter-spacing: 0.5px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.25);
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
       z-index: 60;
@@ -50,28 +43,46 @@
       border-bottom: 1px solid #003052;
     }
 
+    #topBanner h1 {
+      margin: 0;
+      font-size: 1.4em;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+
+    #topBanner .subtitle {
+      font-size: 0.8em;
+      font-weight: normal;
+      margin-top: 4px;
+      opacity: 0.9;
+    }
+
+    #topBanner a {
+      color: #fff;
+      text-decoration: underline;
+      transition: opacity 0.2s;
+    }
+
     #viewDiv {
       flex: 1;
       width: 100%;
-      padding: 0;
-      margin: 0;
-      overflow: hidden;
       position: relative;
     }
 
     /* Floating Events Panel */
     #eventsPanel {
       position: absolute;
-      top: 130px; /* Adjusted for taller banner */
+      top: 90px; /* Lifted closer to banner (was 130px) */
       right: 15px;
       width: 260px;
       background-color: white;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
       border-radius: 4px;
-      z-index: 50;
-      overflow: hidden;
+      z-index: 55; /* Increased z-index to stay above Population Viewer (50) */
       display: flex;
       flex-direction: column;
+      max-height: 45%; /* Reduced max-height to avoid covering bottom panel */
     }
 
     #eventsHeader {
@@ -83,49 +94,59 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-shrink: 0;
     }
 
-    #eventsList {
-      max-height: 300px;
+    #eventsScrollContainer {
+      flex: 1;
       overflow-y: auto;
+    }
+
+    /* Numbering for Events List */
+    #eventsList {
+      counter-reset: event-counter; /* Initialize counter */
     }
 
     .event-item {
       padding: 10px;
+      padding-left: 32px; /* Increased padding-left to add space after number */
       border-bottom: 1px solid #eee;
       cursor: pointer;
       transition: background-color 0.2s;
+      position: relative; /* Context for absolute positioning of number */
+    }
+
+    .event-item::before {
+      counter-increment: event-counter; /* Increment counter */
+      content: counter(event-counter) "."; /* Display number */
+      position: absolute;
+      left: 8px;
+      top: 10px;
+      font-weight: bold;
+      color: #0079c1;
+      font-size: 0.95em;
+      /* Optional: ensure width for alignment if desired, but padding-left handles space */
     }
 
     .event-item:hover {
       background-color: #f0f8ff;
     }
 
-    .event-name {
-      font-weight: bold;
-      color: #0079c1;
-      font-size: 0.95em;
-    }
+    .event-name { font-weight: bold; color: #0079c1; font-size: 0.95em; }
+    .event-details { font-size: 0.8em; color: #666; margin-top: 4px; }
+    .event-links { font-size: 0.75em; margin-top: 6px; }
+    .event-links a { color: #0079c1; text-decoration: none; }
+    .event-links a:hover { text-decoration: underline; }
 
-    .event-details {
-      font-size: 0.8em;
-      color: #666;
-      margin-top: 4px;
-    }
-
-    .event-links {
+    .event-note {
+      padding: 10px;
       font-size: 0.75em;
-      margin-top: 6px;
+      color: #555;
+      background-color: #fcfcfc;
+      border-bottom: 1px solid #eee;
+      line-height: 1.4;
     }
-    
-    .event-links a {
-      color: #0079c1;
-      text-decoration: none;
-    }
-    
-    .event-links a:hover {
-      text-decoration: underline;
-    }
+    .event-note a { color: #0079c1; text-decoration: none; font-weight: bold; }
 
     /* Bottom Panel Container */
     #infoPanel {
@@ -133,7 +154,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 40%; /* Relative height */
+      height: 40%;
       min-height: 300px;
       background-color: white;
       box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
@@ -145,26 +166,38 @@
     #panelHeader {
       background-color: #0079c1;
       color: white;
-      padding: 8px 15px;
+      padding: 5px 15px; /* Reduced vertical padding */
       font-size: 1em;
       font-weight: bold;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 36px;
+      height: 30px; /* Reduced height (was 36px) */
       flex-shrink: 0;
     }
 
-    /* Main Content Area: Split Vertically (Controls Top, Chart Bottom) */
+    #panelResizer {
+      width: 100%;
+      height: 10px;
+      background-color: #f4f4f4;
+      cursor: ns-resize;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    #panelResizer::after { content: ""; width: 40px; height: 4px; background-color: #bbb; border-radius: 2px; }
+
     #panelContent {
       flex: 1;
       display: flex;
-      flex-direction: column; /* Changed to column */
+      flex-direction: column;
       overflow: hidden;
       position: relative;
     }
 
-    /* Controls Bar */
     #controlsContainer {
       width: 100%;
       padding: 10px 15px;
@@ -178,38 +211,15 @@
       flex-wrap: wrap;
     }
 
-    /* Chart Area */
-    #chartContainer {
-      flex: 1;
-      position: relative;
-      background-color: #fff;
-      padding: 5px;
-      min-height: 0; /* Important for flex child scrolling/sizing */
-    }
+    #chartContainer { flex: 1; position: relative; background-color: #fff; padding: 5px; }
+    #chartDiv { width: 100%; height: 100%; }
 
-    #chartDiv {
-      width: 100%;
-      height: 100%;
-    }
-
-    /* UI Elements Styling */
-    .info-group {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      border-right: 1px solid #ccc;
-      padding-right: 15px;
-    }
-
+    .info-group { display: flex; gap: 10px; align-items: center; border-right: 1px solid #ccc; padding-right: 15px; }
     .stat-label { font-weight: bold; color: #555; font-size: 0.9em; }
-    .stat-value { color: #000; font-family: monospace; font-size: 0.95em;}
+    .stat-value { color: #000; font-family: monospace; font-size: 0.95em; }
 
-    select {
-      padding: 5px;
-      border-radius: 3px;
-      border: 1px solid #ccc;
-    }
-
+    select { padding: 5px; border-radius: 3px; border: 1px solid #ccc; }
+    
     .btn {
       background-color: #0079c1;
       color: white;
@@ -218,24 +228,10 @@
       cursor: pointer;
       border-radius: 3px;
       font-size: 0.9em;
-      transition: background-color 0.2s;
     }
+    .btn:disabled { background-color: #ccc; cursor: not-allowed; }
 
-    .btn:hover {
-      background-color: #005a8f;
-    }
-
-    .btn:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-
-    .hint-text {
-      font-size: 0.8em;
-      color: #666;
-      margin-left: auto; /* Push to right */
-      font-style: italic;
-    }
+    .hint-text { font-size: 0.8em; color: #666; margin-left: auto; font-style: italic; }
 
     /* Select Tool Button */
     #selectToolBtn, #selectPolygonBtn {
@@ -250,18 +246,13 @@
       cursor: pointer;
       font-size: 16px;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-      margin-bottom: 5px; /* Spacing between buttons */
-    }
-    #selectToolBtn:hover, #selectPolygonBtn:hover {
-      background-color: #f3f3f3;
-      color: #2e2e2e;
+      margin-bottom: 5px;
     }
     #selectToolBtn.active, #selectPolygonBtn.active {
       background-color: #0079c1;
       color: white;
     }
 
-    /* Loading Overlay */
     #loadingOverlay {
       display: none;
       position: absolute;
@@ -275,7 +266,6 @@
       justify-content: center;
       flex-direction: column;
     }
-
     .spinner {
       border: 4px solid #f3f3f3;
       border-top: 4px solid #0079c1;
@@ -285,17 +275,19 @@
       animation: spin 1s linear infinite;
       margin-bottom: 10px;
     }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 
   <!-- Top Banner -->
-  <div id="topBanner">The First Large-Scale Fine-Grained Hourly Population Map</div>
+  <div id="topBanner">
+    <h1>Fine-Grained US Hourly Population Map (2022)</h1>
+    <div class="subtitle">
+      Data source: <a href="https://github.com/gladcolor/hourly_population" target="_blank">GitHub</a> | 
+      Derived from <a href="https://docs.deweydata.io/docs/advan-research" target="_blank">Advan human mobility datasets</a>
+    </div>
+  </div>
 
   <div id="viewDiv"></div>
   
@@ -314,164 +306,141 @@
     <div id="eventsHeader">
       <span>Featured Places/Events</span>
     </div>
-    <div id="eventsList">
-      <!-- Top Event: Central Park -->
-      <div class="event-item" onclick="app.loadEvent('360610143001', '07')">
-        <div class="event-name">New York City Central Park</div>
-        <div class="event-details">New York, NY (2022)</div>
-        <div class="event-details">Reported daily visitor: 115,000</div>
-        <div class="event-links">
-          <a href="https://www.centralpark.com/" target="_blank" onclick="event.stopPropagation()">Place Info</a>
-          &nbsp;|&nbsp;
-          <a href="https://assets.centralparknyc.org/media/documents/AnnualReport_Inside_2022_Digital.pdf" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
-        </div>
+    <div id="eventsScrollContainer">
+      <div class="event-note">
+        The selected places and events demonstrate the alignment of the reconstructed hourly population data with real-world figures. Most examples show a strong match, though some discrepancies exist. This selection aims to provide an intuitive overview of the new dataset. Please contact us (<a href="mailto:hning6@emory.edu">hning6@emory.edu</a>) if you have other interesting cases!
       </div>
-
-      <!-- Event 1 -->
-      <div class="event-item" onclick="app.loadEvent('280539503003', '04')">
-        <div class="event-name">World Catfish Festival</div>
-        <div class="event-details">Belzoni, MS (Apr 2, 2022)</div>
-        <div class="event-details">Reported visitor: ~9,000</div>
-        <div class="event-links">
-          <a href="https://www.catfishcapitol.com/world-catfish-festival-3/" target="_blank" onclick="event.stopPropagation()">Event Info</a>
-          &nbsp;|&nbsp;
-          <a href="https://www.facebook.com/worldcatfishfestival/photos/a.10152291380327403/10159722507842403/?type=3&locale=ms_MY&_rdr" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+      <div id="eventsList">
+        <!-- Top Event: Central Park -->
+        <div class="event-item" onclick="app.loadEvent('360610143001', '07')">
+          <div class="event-name">New York City Central Park</div>
+          <div class="event-details">New York, NY (2022)</div>
+          <div class="event-details">Reported daily visitor: 115,000</div>
+          <div class="event-links">
+            <a href="https://www.centralpark.com/" target="_blank" onclick="event.stopPropagation()">Place Info</a> | 
+            <a href="https://assets.centralparknyc.org/media/documents/AnnualReport_Inside_2022_Digital.pdf" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+          </div>
         </div>
-      </div>
-      
-      <!-- Event 2 -->
-      <div class="event-item" onclick="app.loadEvent('371010414006', '09')">
-        <div class="event-name">Benson Mule Days</div>
-        <div class="event-details">Benson, NC (Sep 24, 2022)</div>
-        <div class="event-details">Reported visitor: 20,000-30,000</div>
-        <div class="event-links">
-          <a href="https://bensonmuledays.com/" target="_blank" onclick="event.stopPropagation()">Event Info</a>
-          &nbsp;|&nbsp;
-          <a href="https://www.johnstoncountync.org/event/benson-mule-days/1500" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+        <!-- Event 1 -->
+        <div class="event-item" onclick="app.loadEvent('280539503003', '04')">
+          <div class="event-name">World Catfish Festival</div>
+          <div class="event-details">Belzoni, MS (Apr 2, 2022)</div>
+          <div class="event-details">Reported visitor: ~9,000</div>
+          <div class="event-links">
+            <a href="https://www.catfishcapitol.com/world-catfish-festival-3/" target="_blank" onclick="event.stopPropagation()">Event Info</a> | 
+            <a href="https://www.facebook.com/worldcatfishfestival/photos/a.10152291380327403/10159722507842403/?type=3&locale=ms_MY&_rdr" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+          </div>
         </div>
-      </div>
-
-      <!-- Event 3 -->
-      <div class="event-item" onclick="app.loadEvent('480519703001', '09')">
-        <div class="event-name">Kolache Festival</div>
-        <div class="event-details">Caldwell, TX (Sep 10, 2022)</div>
-        <div class="event-details">Reported visitor: >18,000</div>
-        <div class="event-links">
-          <a href="https://www.burlesoncountytx.com/kolache-fest/" target="_blank" onclick="event.stopPropagation()">Event Info</a>
-          &nbsp;|&nbsp;
-          <a href="https://www.bctribune.com/news/attendance-soars-years-kolache-festival#:~:text=By%20News%20Staff%20on%20Wednesday,at%20this%20year's%20Kolache%20Festival" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+        <!-- Event 2 -->
+        <div class="event-item" onclick="app.loadEvent('371010414006', '09')">
+          <div class="event-name">Benson Mule Days</div>
+          <div class="event-details">Benson, NC (Sep 24, 2022)</div>
+          <div class="event-details">Reported visitor: 20,000-30,000</div>
+          <div class="event-links">
+            <a href="https://bensonmuledays.com/" target="_blank" onclick="event.stopPropagation()">Event Info</a> | 
+            <a href="https://www.johnstoncountync.org/event/benson-mule-days/1500" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+          </div>
         </div>
-      </div>
-
-      <!-- Event 4 -->
-      <div class="event-item" onclick="app.loadEvent('340090219003', '12')">
-        <div class="event-name">West Cape May Christmas Parade</div>
-        <div class="event-details">West Cape May, NJ (Dec 3, 2022)</div>
-        <div class="event-details">Reported visitor: >10,000</div>
-        <div class="event-links">
-          <a href="https://www.capemay.com/calendar/events/the-west-cape-may-christmas-parade/" target="_blank" onclick="event.stopPropagation()">Event Info</a>
-          &nbsp;|&nbsp;
-          <a href="https://www.capemay.com/blog/2022/12/photos-from-the-2022-west-cape-may-christmas-parade/" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+        <!-- Event 3 -->
+        <div class="event-item" onclick="app.loadEvent('480519703001', '09')">
+          <div class="event-name">Kolache Festival</div>
+          <div class="event-details">Caldwell, TX (Sep 10, 2022)</div>
+          <div class="event-details">Reported visitor: >18,000</div>
+          <div class="event-links">
+            <a href="https://www.burlesoncountytx.com/kolache-fest/" target="_blank" onclick="event.stopPropagation()">Event Info</a> | 
+            <a href="https://www.bctribune.com/news/attendance-soars-years-kolache-festival#:~:text=By%20News%20Staff%20on%20Wednesday,at%20this%20year's%20Kolache%20Festival" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+          </div>
         </div>
-      </div>
-
-      <!-- Event 5 -->
-      <div class="event-item" onclick="app.loadEvent('340350529011', '10')">
-        <div class="event-name">Far Hills Race Meeting</div>
-        <div class="event-details">Far Hills, NJ (Oct 15, 2022)</div>
-        <div class="event-details">Reported visitor: ~30,000</div>
-        <div class="event-links">
-          <a href="https://farhillsrace.org/" target="_blank" onclick="event.stopPropagation()">Event Info</a>
-          &nbsp;|&nbsp;
-          <a href="https://farhillsrace.org/a-full-recap-of-our-101st-running-at-far-hills-race-meeting/#:~:text=This%20year%2C%20nearly%2030%2C000%20people,%2C%20LifeCamp%2C%20and%20Bonnie%20Brae" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+        <!-- Event 4 -->
+        <div class="event-item" onclick="app.loadEvent('340090219003', '12')">
+          <div class="event-name">West Cape May Christmas Parade</div>
+          <div class="event-details">West Cape May, NJ (Dec 3, 2022)</div>
+          <div class="event-details">Reported visitor: >10,000</div>
+          <div class="event-links">
+            <a href="https://www.capemay.com/calendar/events/the-west-cape-may-christmas-parade/" target="_blank" onclick="event.stopPropagation()">Event Info</a> | 
+            <a href="https://www.capemay.com/blog/2022/12/photos-from-the-2022-west-cape-may-christmas-parade/" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+          </div>
         </div>
-      </div>
-
-      <!-- Event 6 -->
-      <div class="event-item" onclick="app.loadEvent('130999603002', '03')">
-        <div class="event-name">Peanut Proud Festival</div>
-        <div class="event-details">Blakely, GA (Mar 26, 2022)</div>
-        <div class="event-details">Reported historical visitor: 8,000-10,000</div>
-        <div class="event-links">
-          <a href="https://www.peanutproudfestival.com/" target="_blank" onclick="event.stopPropagation()">Event Info</a>
-          &nbsp;|&nbsp;
-          <a href="https://www.walb.com/story/37692363/peanut-proud-festival-expecting-to-draw-large-numbers-to-blakely/#:~:text=BLAKELY%2C%20GA%20(WALB)%20%2D,All%20rights%20reserved" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+        <!-- Event 5 -->
+        <div class="event-item" onclick="app.loadEvent('340350529011', '10')">
+          <div class="event-name">Far Hills Race Meeting</div>
+          <div class="event-details">Far Hills, NJ (Oct 15, 2022)</div>
+          <div class="event-details">Reported visitor: ~30,000</div>
+          <div class="event-links">
+            <a href="https://farhillsrace.org/" target="_blank" onclick="event.stopPropagation()">Event Info</a> | 
+            <a href="https://farhillsrace.org/a-full-recap-of-our-101st-running-at-far-hills-race-meeting/#:~:text=This%20year%2C%20nearly%2030%2C000%20people,%2C%20LifeCamp%2C%20and%20Bonnie%20Brae" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+          </div>
         </div>
-      </div>
-      
-      <!-- Event 7 -->
-      <div class="event-item" onclick="app.loadEvent('540259505003', '07')">
-        <div class="event-name">Alderson 4th of July</div>
-        <div class="event-details">Alderson, WV (Jul 4, 2022)</div>
-        <div class="event-details">Reported historical visitor: ~15,000</div>
-        <div class="event-links">
-          <a href="https://www.alderson4th.com/" target="_blank" onclick="event.stopPropagation()">Event Info</a>
-          &nbsp;|&nbsp;
-          <a href="https://www.wvnstv.com/archives/alderson-set-to-kick-off-56th-annual-fourth-of-july-celebration/840193683/" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+        <!-- Event 6 -->
+        <div class="event-item" onclick="app.loadEvent('130990902004', '03')">
+          <div class="event-name">Peanut Proud Festival</div>
+          <div class="event-details">Blakely, GA (Mar 26, 2022)</div>
+          <div class="event-details">Reported historical visitor: 8,000-10,000</div>
+          <div class="event-links">
+            <a href="https://www.peanutproudfestival.com/" target="_blank" onclick="event.stopPropagation()">Event Info</a> | 
+            <a href="https://www.walb.com/story/37692363/peanut-proud-festival-expecting-to-draw-large-numbers-to-blakely/#:~:text=BLAKELY%2C%20GA%20(WALB)%20%2D,All%20rights%20reserved" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+          </div>
         </div>
-      </div>
-
-      <!-- Event 8 -->
-      <div class="event-item" onclick="app.loadEvent('090091901002', '09')">
-        <div class="event-name">Guilford Fair</div>
-        <div class="event-details">Guilford, CT (Sep 16-18, 2022)</div>
-        <div class="event-details">Expected visitor: ~20,000</div>
-        <div class="event-links">
-          <a href="https://guilfordfair.org/" target="_blank" onclick="event.stopPropagation()">Event Info</a>
-          &nbsp;|&nbsp;
-          <a href="https://www.ctinsider.com/shoreline/article/guilford-fair-2022-opens-with-help-of-volunteers-17441373.php" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+        <!-- Event 7 -->
+        <div class="event-item" onclick="app.loadEvent('540259505003', '07')">
+          <div class="event-name">Alderson 4th of July</div>
+          <div class="event-details">Alderson, WV (Jul 4, 2022)</div>
+          <div class="event-details">Reported historical visitor: ~15,000</div>
+          <div class="event-links">
+            <a href="https://www.alderson4th.com/" target="_blank" onclick="event.stopPropagation()">Event Info</a> | 
+            <a href="https://www.wvnstv.com/archives/alderson-set-to-kick-off-56th-annual-fourth-of-july-celebration/840193683/" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+          </div>
         </div>
-      </div>
-
-      <!-- Event 9 -->
-      <div class="event-item" onclick="app.loadEvent('510110401004', '10')">
-        <div class="event-name">Appomattox Railroad Festival</div>
-        <div class="event-details">Appomattox, VA (Oct 7-9, 2022)</div>
-        <div class="event-details">2024 expected visitor: 25,000</div>
-        <div class="event-links">
-          <a href="https://appomattoxrrfest.org/" target="_blank" onclick="event.stopPropagation()">Event Info</a>
-          &nbsp;|&nbsp;
-          <a href="https://wset.com/news/local/appomattox-railroad-festival-celebrates-52nd-year-rides-games-entertainment-live-music-parades-train-exhibits-vendors-art-crafts-homemade-goods-food-veterans-memorial-activities-october-2024" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+        <!-- Event 8 -->
+        <div class="event-item" onclick="app.loadEvent('090091901002', '09')">
+          <div class="event-name">Guilford Fair</div>
+          <div class="event-details">Guilford, CT (Sep 16-18, 2022)</div>
+          <div class="event-details">Expected visitor: ~20,000</div>
+          <div class="event-links">
+            <a href="https://guilfordfair.org/" target="_blank" onclick="event.stopPropagation()">Event Info</a> | 
+            <a href="https://www.ctinsider.com/shoreline/article/guilford-fair-2022-opens-with-help-of-volunteers-17441373.php" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+          </div>
         </div>
-      </div>
-
-      <!-- Event 10 -->
-      <div class="event-item" onclick="app.loadEvent('510731002033,510731002031', '04')">
-        <div class="event-name">Gloucester Daffodil Festival</div>
-        <div class="event-details">Gloucester, VA (Apr 2-3, 2022)</div>
-        <div class="event-details">Reported visitor: >25,000</div>
-        <div class="event-links">
-          <a href="https://www.daffodilfestivalva.org/" target="_blank" onclick="event.stopPropagation()">Event Info</a>
-          &nbsp;|&nbsp;
-          <a href="https://www.wtkr.com/positivelyhr/more-than-25k-people-attended-to-gloucester-daffodil-festivals-return-organizers-say#:~:text=More%20than%2025K%20people%20attended%20first%20Gloucester%20Daffodil%20Festival%20since,event%2C%20which%20was%20in%202019" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+        <!-- Event 9 -->
+        <div class="event-item" onclick="app.loadEvent('510110401004', '10')">
+          <div class="event-name">Appomattox Railroad Festival</div>
+          <div class="event-details">Appomattox, VA (Oct 7-9, 2022)</div>
+          <div class="event-details">2024 expected visitor: 25,000</div>
+          <div class="event-links">
+            <a href="https://appomattoxrrfest.org/" target="_blank" onclick="event.stopPropagation()">Event Info</a> | 
+            <a href="https://wset.com/news/local/appomattox-railroad-festival-celebrates-52nd-year-rides-games-entertainment-live-music-parades-train-exhibits-vendors-art-crafts-homemade-goods-food-veterans-memorial-activities-october-2024" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+          </div>
+        </div>
+        <!-- Event 10 -->
+        <div class="event-item" onclick="app.loadEvent('510731002033,510731002031', '04')">
+          <div class="event-name">Gloucester Daffodil Festival</div>
+          <div class="event-details">Gloucester, VA (Apr 2-3, 2022)</div>
+          <div class="event-details">Reported visitor: >25,000</div>
+          <div class="event-links">
+            <a href="https://www.daffodilfestivalva.org/" target="_blank" onclick="event.stopPropagation()">Event Info</a> | 
+            <a href="https://www.wtkr.com/positivelyhr/more-than-25k-people-attended-to-gloucester-daffodil-festivals-return-organizers-say#:~:text=More%20than%2025K%20people%20attended%20first%20Gloucester%20Daffodil%20Festival%20since,event%2C%20which%20was%20in%202019" target="_blank" onclick="event.stopPropagation()">Verify Count</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Bottom Information Panel -->
   <div id="infoPanel">
+    <div id="panelResizer" title="Drag to resize"></div>
     <div id="panelHeader">
       <span>Population Viewer</span>
       <span id="headerMsg" style="font-size: 0.8em; opacity: 0.9;">Select a Block Group on map</span>
     </div>
-
     <div id="panelContent">
       <div id="loadingOverlay">
         <div class="spinner"></div>
         <div id="loadingText">Loading data...</div>
       </div>
-
-      <!-- Controls Bar -->
       <div id="controlsContainer">
-        
-        <!-- Info Group -->
         <div class="info-group">
           <span class="stat-label">CBG:</span>
           <span class="stat-value" id="dispGeoid">None</span>
         </div>
-
-        <!-- Month Selector -->
         <div class="control-item">
           <label class="stat-label" for="monthSelect">Month:</label>
           <select id="monthSelect" disabled>
@@ -489,36 +458,30 @@
             <option value="12">December</option>
           </select>
         </div>
-
-        <!-- Full Year Button -->
-        <button id="btnFullYear" class="btn" disabled>
-          Load Full Year
-        </button>
-
-        <!-- Plot Hints & Legend -->
+        <button id="btnFullYear" class="btn" disabled>Load Full Year</button>
         <div class="hint-text" style="display: flex; align-items: center; gap: 15px;">
            <div style="display: flex; align-items: center;" title="Light green background indicates weekends">
               <span style="width: 14px; height: 14px; background-color: #90EE90; opacity: 0.5; margin-right: 5px; border: 1px solid #ddd;"></span>
               <span>Weekend</span>
            </div>
+           <div style="display: flex; align-items: center;" title="Light grey background indicates nighttime (7pm-7am)">
+              <span style="width: 14px; height: 14px; background-color: #e0e0e0; opacity: 0.5; margin-right: 5px; border: 1px solid #ddd;"></span>
+              <span>Night (7PM-7AM)</span>
+           </div>
            <span id="plotHint">Use Select Tool for area. Hold Shift for multi-click.</span>
         </div>
       </div>
-
-      <!-- Chart Area -->
       <div id="chartContainer">
         <div id="chartDiv"></div>
       </div>
-
     </div>
   </div>
 
   <script>
-    // Global app namespace for inline HTML onclick handlers
-    // Initialize with a placeholder to prevent "not a function" errors before ArcGIS loads
+    // Initialize global app object immediately to prevent race conditions with inline click handlers
     window.app = {
       loadEvent: function() {
-        alert("The map is still loading. Please wait a moment and try again.");
+        alert("Map is initializing. Please wait a moment...");
       }
     };
 
@@ -537,27 +500,15 @@
       "esri/rest/support/Query"
     ], function(WebMap, MapView, Home, Search, ScaleBar, Compass, BasemapGallery, Expand, SketchViewModel, GraphicsLayer, reactiveUtils, Query) {
 
-      // Configuration
       const WEBMAP_ID = "972baa5c50794bc599d730d035a71dee";
       const DATA_URL_TEMPLATE = "https://huggingface.co/datasets/gladcolor/hourly_population_US/resolve/main/2022/{MM}/{COUNTY_FIPS}.csv.gz";
       
-      // State
       let currentCbgFips = null;
       let currentCountyFips = null;
-      let cbgLayer = null; // Reference to the layer for querying
-      
-      // Array to store currently selected Features (graphics)
+      let cbgLayer = null;
       let selectedFeatures = []; 
+      let dataCache = { countyFips: null, month: null, parsedData: null, fields: null };
 
-      // DATA CACHE
-      let dataCache = {
-        countyFips: null,
-        month: null,
-        parsedData: null, 
-        fields: null
-      };
-
-      // UI Elements
       const ui = {
         loading: document.getElementById("loadingOverlay"),
         loadingText: document.getElementById("loadingText"),
@@ -568,69 +519,49 @@
         chartDiv: document.getElementById("chartDiv")
       };
 
-      // 1. Initialize Map
-      const webmap = new WebMap({
-        portalItem: {
-          id: WEBMAP_ID
-        }
-      });
-
+      const webmap = new WebMap({ portalItem: { id: WEBMAP_ID } });
       const view = new MapView({
         container: "viewDiv",
         map: webmap,
         padding: { bottom: 300, right: 0 }, 
-        popup: {
-          autoOpenEnabled: false 
-        }
+        popup: { autoOpenEnabled: false }
       });
 
-      // Create GraphicsLayer for Sketch
       const sketchLayer = new GraphicsLayer();
       webmap.add(sketchLayer);
 
-      // Add Map Tools
+      // Reorder UI elements: Search first, then others
+      const searchWidget = new Search({ view: view });
+      view.ui.add(searchWidget, { position: "top-left", index: 0 });
+
       view.ui.add(new Home({ view: view }), "top-left");
       
-      // Add custom select buttons
+      // Move custom buttons into view
       view.ui.add("selectToolBtn", "top-left");
       view.ui.add("selectPolygonBtn", "top-left");
 
-      const searchWidget = new Search({ view: view });
-      view.ui.add(searchWidget, "top-right");
-      
       view.ui.add(new Compass({ view: view }), "top-left");
       view.ui.add(new ScaleBar({ view: view, unit: "dual" }), "bottom-right");
 
-      // Add Basemap Gallery inside Expand Widget
       const bgExpand = new Expand({
         view: view,
-        content: new BasemapGallery({
-          view: view
-        }),
+        content: new BasemapGallery({ view: view }),
         expandIcon: "basemap", 
         expandTooltip: "Select Basemap"
       });
       view.ui.add(bgExpand, "top-left");
 
-      // Setup SketchViewModel
       const sketchViewModel = new SketchViewModel({
         view: view,
         layer: sketchLayer,
         polygonSymbol: {
           type: "simple-fill",
           color: [0, 121, 193, 0.2],
-          outline: {
-            color: [0, 121, 193, 1],
-            width: 1
-          }
+          outline: { color: [0, 121, 193, 1], width: 1 }
         },
-        defaultUpdateOptions: {
-            tool: "reshape",
-            toggleToolOnClick: false
-        }
+        defaultUpdateOptions: { tool: "reshape", toggleToolOnClick: false }
       });
 
-      // Select Tool Button Click (Rectangle)
       const selectBtn = document.getElementById("selectToolBtn");
       const polygonBtn = document.getElementById("selectPolygonBtn");
 
@@ -639,50 +570,45 @@
             sketchViewModel.cancel();
             selectBtn.classList.remove("active");
         } else {
-            // Deactivate polygon if active
-            if (polygonBtn.classList.contains("active")) {
-                polygonBtn.classList.remove("active");
-            }
+            if (polygonBtn.classList.contains("active")) polygonBtn.classList.remove("active");
             selectBtn.classList.add("active");
             sketchViewModel.create("rectangle");
         }
       });
 
-      // Select Tool Button Click (Polygon)
       polygonBtn.addEventListener("click", () => {
         if (polygonBtn.classList.contains("active")) {
             sketchViewModel.cancel();
             polygonBtn.classList.remove("active");
         } else {
-            // Deactivate rectangle if active
-            if (selectBtn.classList.contains("active")) {
-                selectBtn.classList.remove("active");
-            }
+            if (selectBtn.classList.contains("active")) selectBtn.classList.remove("active");
             polygonBtn.classList.add("active");
             sketchViewModel.create("polygon");
         }
       });
 
-      // Sketch Events
       sketchViewModel.on("create", async (event) => {
         if (event.state === "complete") {
           selectBtn.classList.remove("active");
           polygonBtn.classList.remove("active");
           
-          // Perform Query
-          selectCbgsByGeometry(event.graphic.geometry);
-          
-          // Clear sketch
+          // Clear visual sketch immediately so user knows it's done
           sketchLayer.removeAll();
+          
+          selectCbgsByGeometry(event.graphic.geometry);
         }
         if (event.state === "cancel") {
              selectBtn.classList.remove("active");
              polygonBtn.classList.remove("active");
+             sketchLayer.removeAll();
         }
       });
 
       async function selectCbgsByGeometry(geometry) {
-         if (!cbgLayer) return;
+         if (!cbgLayer) {
+             alert("Map layer not fully loaded yet.");
+             return;
+         }
          
          const query = cbgLayer.createQuery();
          query.geometry = geometry;
@@ -691,47 +617,42 @@
          query.outFields = ["*"];
          
          ui.headerMsg.textContent = "Selecting features...";
+         showLoading(true, "Selecting area...");
          
          try {
              const results = await cbgLayer.queryFeatures(query);
              const graphics = results.features;
              
              if (graphics.length > 0) {
-                 // Replace current selection
                  selectedFeatures = graphics;
-                 
                  const geoids = graphics.map(g => g.attributes.GEOID || g.attributes.geoid || g.attributes.Geoid);
                  const currentMonth = ui.monthSelect.value || "01";
-                 
                  handleCbgSelection(geoids, currentMonth);
                  highlightGraphic(graphics);
              } else {
-                 ui.headerMsg.textContent = "No features found in selection.";
+                 ui.headerMsg.textContent = "No block groups found in selection.";
+                 alert("No census block groups found in the selected area.");
+                 showLoading(false);
              }
          } catch (error) {
              console.error(error);
              ui.headerMsg.textContent = "Selection Error.";
+             showLoading(false);
          }
       }
 
-      // FIX: Ensure attributes are loaded and get Layer Reference
       view.when(() => {
         const layer = webmap.layers.find(l => l.title && l.title.toLowerCase().includes("blockgroups"));
         if (layer) {
           layer.outFields = ["*"];
           cbgLayer = layer;
         } else {
-          // Fallback find
           cbgLayer = webmap.allLayers.find(l => l.type === "feature");
           if(cbgLayer) cbgLayer.outFields = ["*"];
         }
 
-        // AUTO-SELECT CENTRAL PARK ON LOAD
         if(cbgLayer) {
-           // We use reactiveUtils to wait until view is not updating to ensure smoother zoom
            reactiveUtils.whenOnce(() => !view.updating).then(() => {
-              // Load Central Park (July) as default
-              // This call will use the overwritten app.loadEvent defined below
               if (window.app.loadEvent && typeof window.app.loadEvent === 'function') {
                   window.app.loadEvent('360610143001', '07'); 
               }
@@ -739,76 +660,53 @@
         }
       });
 
-      // 2. Interaction Logic
       view.on("click", async (event) => {
+        // Ignore clicks if a sketch tool is active to prevent conflicts
+        if (sketchViewModel.state === "active") return;
+
         const response = await view.hitTest(event);
-        
-        // Find result in our feature layer
         const hitResult = response.results.find(res => {
           const g = res.graphic;
-          return g && g.attributes && (
-            g.attributes.GEOID || 
-            g.attributes.geoid || 
-            g.attributes.Geoid
-          );
+          return g && g.attributes && (g.attributes.GEOID || g.attributes.geoid || g.attributes.Geoid);
         });
 
         if (hitResult) {
           const graphic = hitResult.graphic;
           const geoid = graphic.attributes.GEOID || graphic.attributes.geoid || graphic.attributes.Geoid;
           
-          // Multi-select Logic
-          // Check for modifier keys (Shift or Ctrl)
           const isModifier = event.native.shiftKey || event.native.ctrlKey || event.native.metaKey;
 
           if (isModifier) {
-             // Toggle selection
              const existingIndex = selectedFeatures.findIndex(g => {
                  const gId = g.attributes.GEOID || g.attributes.geoid || g.attributes.Geoid;
                  return gId === geoid;
              });
-
              if (existingIndex > -1) {
-                 // Remove if already selected
                  selectedFeatures.splice(existingIndex, 1);
              } else {
-                 // Add to selection
                  selectedFeatures.push(graphic);
              }
           } else {
-             // Single Select: Reset and select only new
              selectedFeatures = [graphic];
           }
 
-          // If nothing selected (e.g. deselected last one), clear UI
           if (selectedFeatures.length === 0) {
               view.graphics.removeAll();
               ui.fipsDisplay.textContent = "None";
-              return; // Do we clear chart? Maybe keep last? Let's just return.
+              return;
           }
 
-          // Gather IDs for data fetching
-          const selectedIds = selectedFeatures.map(g => 
-             g.attributes.GEOID || g.attributes.geoid || g.attributes.Geoid
-          );
-
-          // Pass the currently selected month to preserve it, defaulting to "01" if empty
+          const selectedIds = selectedFeatures.map(g => g.attributes.GEOID || g.attributes.geoid || g.attributes.Geoid);
           const currentMonth = ui.monthSelect.value || "01";
           
-          // Handle Data Selection
           handleCbgSelection(selectedIds, currentMonth);
-          
-          // Highlight Features
           highlightGraphic(selectedFeatures);
         }
       });
 
       function highlightGraphic(graphics) {
         view.graphics.removeAll();
-        
-        // Handle single graphic or array of graphics
         const items = Array.isArray(graphics) ? graphics : [graphics];
-        
         items.forEach(g => {
             const highlight = {
                geometry: g.geometry,
@@ -823,21 +721,13 @@
       }
 
       function handleCbgSelection(geoids, month = "01") {
-        if (!geoids || geoids.length === 0) {
-          console.warn("Invalid GEOID list");
-          return;
-        }
-
-        // Ensure input is always an array
+        if (!geoids || geoids.length === 0) return;
         const cbgArray = Array.isArray(geoids) ? geoids : [geoids];
         
-        // Store globally
         currentCbgFips = cbgArray;
-        
-        // Extract county from the first CBG (Assuming all are in same county for now)
+        // Take county from first selection. Note: Does not support multi-county selection data fetching yet.
         currentCountyFips = cbgArray[0].substring(0, 5); 
 
-        // Update UI
         if (cbgArray.length > 1) {
             ui.fipsDisplay.textContent = `${cbgArray.length} Selected`;
             ui.fipsDisplay.title = cbgArray.join(", ");
@@ -847,33 +737,22 @@
         }
         
         ui.headerMsg.textContent = "Data Loaded";
-        
         ui.btnFullYear.disabled = false;
         ui.monthSelect.disabled = false;
-        ui.monthSelect.value = month; // Set dropdown to requested month
+        ui.monthSelect.value = month; 
         
-        // Fetch Data
         fetchDataForMonth(month, currentCountyFips, currentCbgFips);
       }
 
-      // 3. Event Handling (Exposed to Global Scope)
-      // overwrite the placeholder function with the real logic
+      // Secure global handler
       window.app.loadEvent = async (cbgInput, month) => {
         if (!cbgLayer) {
-            console.warn("Layer not ready yet for loadEvent.");
+            console.warn("Layer not ready yet.");
             return;
         }
-
-        // Parse input: can be single ID string or comma-separated string
         const cbgList = cbgInput.split(',').map(s => s.trim());
-
-        // 1. Query the map layer to find the feature geometry
         const query = cbgLayer.createQuery();
-        
-        // Build OR clause for multiple IDs
-        const whereClause = cbgList.map(id => `GEOID = '${id}' OR geoid = '${id}'`).join(" OR ");
-        query.where = whereClause;
-        
+        query.where = cbgList.map(id => `GEOID = '${id}' OR geoid = '${id}'`).join(" OR ");
         query.returnGeometry = true;
         query.outFields = ["*"];
 
@@ -882,60 +761,37 @@
         try {
             const results = await cbgLayer.queryFeatures(query);
             if (results.features.length > 0) {
-                // Update the internal state selection so multi-select works after programmatic load
                 selectedFeatures = results.features;
-
-                // 2. Zoom to features (all of them)
-                // MODIFIED: Use a fixed zoom level (13) even for multiple features to maintain consistency
-                // Instead of relying on auto-extent for multiples which was too zoomed out
-                await view.goTo({
-                    target: results.features,
-                    zoom: 13 
-                });
-
-                // 3. Highlight and Select
+                await view.goTo({ target: results.features, zoom: 13 });
                 highlightGraphic(results.features);
                 handleCbgSelection(cbgList, month);
             } else {
-                console.warn("Could not find Block Groups on the map: " + cbgInput);
-                // Fallback: still try to load the chart data even if map doesn't find geometry
+                console.warn("CBGs not found on map, trying data load anyway.");
                 handleCbgSelection(cbgList, month);
             }
         } catch (error) {
-            console.error("Query failed", error);
-            // Even if map query fails, try to load data
+            console.error(error);
             handleCbgSelection(cbgList, month);
         }
       };
 
-      // Handle Month Change
       ui.monthSelect.addEventListener("change", (e) => {
         if (currentCbgFips && currentCountyFips) {
           fetchDataForMonth(e.target.value, currentCountyFips, currentCbgFips);
         }
       });
 
-      // 4. Data Fetching & Processing
       async function fetchDataForMonth(month, countyFips, targetCbgs) {
-        // CHECK CACHE FIRST
-        if (dataCache.parsedData && 
-            dataCache.countyFips === countyFips && 
-            dataCache.month === month) {
-            
-            console.log("Using cached data for county", countyFips);
+        if (dataCache.parsedData && dataCache.countyFips === countyFips && dataCache.month === month) {
             processParsedData(dataCache.parsedData, dataCache.fields, targetCbgs, month);
             return;
         }
 
         showLoading(true, `Fetching ${month}/2022 data...`);
-        
         try {
-          const url = DATA_URL_TEMPLATE
-            .replace("{MM}", month)
-            .replace("{COUNTY_FIPS}", countyFips);
-          
+          const url = DATA_URL_TEMPLATE.replace("{MM}", month).replace("{COUNTY_FIPS}", countyFips);
           const response = await fetch(url);
-          if (!response.ok) throw new Error(`Failed to download data: ${response.statusText}`);
+          if (!response.ok) throw new Error(`Data unavailable for this county.`);
           const arrayBuffer = await response.arrayBuffer();
           const textData = pako.inflate(new Uint8Array(arrayBuffer), { to: 'string' });
           
@@ -943,19 +799,11 @@
             header: true,
             skipEmptyLines: true,
             complete: function(results) {
-              // SAVE TO CACHE
-              dataCache = {
-                countyFips: countyFips,
-                month: month,
-                parsedData: results.data,
-                fields: results.meta.fields
-              };
-
+              dataCache = { countyFips: countyFips, month: month, parsedData: results.data, fields: results.meta.fields };
               processParsedData(results.data, results.meta.fields, targetCbgs, month);
             },
             error: function(err) { throw new Error("CSV Parse Error: " + err.message); }
           });
-
         } catch (error) {
           console.error(error);
           alert("Error loading data: " + error.message);
@@ -964,14 +812,8 @@
       }
 
       function processParsedData(data, fields, targetCbgs, month) {
-        // targetCbgs is array of IDs
-        
-        // Find all rows matching the IDs
         const rows = data.filter(r => targetCbgs.includes(r.CBG) || targetCbgs.includes(r["﻿CBG"]));
-
         if (rows.length === 0) {
-          // Don't alert immediately if multi-selecting, as some might not have data yet? 
-          // For now, consistent behavior:
           alert(`Selected CBGs not found in data file.`);
           showLoading(false);
           return;
@@ -980,66 +822,41 @@
         const timeSeriesX = [];
         const timeSeriesY = [];
 
-        // Aggregate data if multiple rows, otherwise just take single
         fields.forEach(field => {
           if (field.includes("2022-")) {
             let sum = 0;
             let hasData = false;
-            
             rows.forEach(row => {
                 const val = parseFloat(row[field]);
-                if (!isNaN(val)) {
-                    sum += val;
-                    hasData = true;
-                }
+                if (!isNaN(val)) { sum += val; hasData = true; }
             });
-
-            if (hasData) {
-              timeSeriesX.push(field);
-              timeSeriesY.push(sum);
-            }
+            if (hasData) { timeSeriesX.push(field); timeSeriesY.push(sum); }
           }
         });
 
-        const title = rows.length > 1 
-            ? `Total Population (${rows.length} Block Groups): Month ${month}`
-            : `Population: Month ${month}`;
-
+        const title = rows.length > 1 ? `Total Population (${rows.length} Block Groups): Month ${month}` : `Population: Month ${month}`;
         renderChart(timeSeriesX, timeSeriesY, title);
         showLoading(false);
       }
 
-      // 5. Visualization (Plotly)
       function getWeekendShapes(xValues) {
         if (!xValues || xValues.length === 0) return [];
-        
         const shapes = [];
         const startDate = new Date(xValues[0]);
         const endDate = new Date(xValues[xValues.length - 1]);
-        
         let current = new Date(startDate);
         current.setHours(0,0,0,0);
         
         while (current <= endDate) {
-          const day = current.getDay(); // 0=Sun, 6=Sat
+          const day = current.getDay(); 
           if (day === 6) {
              const startStr = current.toISOString().split('T')[0] + ' 00:00:00';
              const nextMon = new Date(current);
              nextMon.setDate(nextMon.getDate() + 2);
              const endStr = nextMon.toISOString().split('T')[0] + ' 00:00:00';
-
              shapes.push({
-               type: 'rect',
-               xref: 'x',
-               yref: 'paper',
-               x0: startStr,
-               x1: endStr,
-               y0: 0,
-               y1: 1,
-               fillcolor: '#90EE90',
-               opacity: 0.2, 
-               line: { width: 0 },
-               layer: 'below'
+               type: 'rect', xref: 'x', yref: 'paper', x0: startStr, x1: endStr, y0: 0, y1: 1,
+               fillcolor: '#90EE90', opacity: 0.2, line: { width: 0 }, layer: 'below'
              });
           }
           current.setDate(current.getDate() + 1);
@@ -1047,52 +864,55 @@
         return shapes;
       }
 
+      function getNightShapes(xValues) {
+        if (!xValues || xValues.length === 0) return [];
+        const shapes = [];
+        const startDate = new Date(xValues[0]);
+        const endDate = new Date(xValues[xValues.length - 1]);
+        let current = new Date(startDate);
+        current.setHours(0,0,0,0);
+
+        const startDayStr = current.toISOString().split('T')[0];
+        shapes.push({
+           type: 'rect', xref: 'x', yref: 'paper',
+           x0: startDayStr + ' 00:00:00', x1: startDayStr + ' 07:00:00',
+           y0: 0, y1: 1, fillcolor: '#e0e0e0', opacity: 0.3, line: { width: 0 }, layer: 'below'
+        });
+        
+        while (current <= endDate) {
+          const dayStr = current.toISOString().split('T')[0];
+          const nextDay = new Date(current);
+          nextDay.setDate(nextDay.getDate() + 1);
+          const nextDayStr = nextDay.toISOString().split('T')[0];
+          shapes.push({
+             type: 'rect', xref: 'x', yref: 'paper',
+             x0: dayStr + ' 19:00:00', x1: nextDayStr + ' 07:00:00',
+             y0: 0, y1: 1, fillcolor: '#e0e0e0', opacity: 0.3, line: { width: 0 }, layer: 'below'
+          });
+          current.setDate(current.getDate() + 1);
+        }
+        return shapes;
+      }
+
       function renderChart(xValues, yValues, title) {
-        const trace = {
-          x: xValues,
-          y: yValues,
-          type: 'scatter',
-          mode: 'lines',
-          line: { 
-            color: '#0079c1', 
-            width: 0.8 
-          }, 
-          name: 'Population'
-        };
-
-        const weekendShapes = getWeekendShapes(xValues);
-
+        const trace = { x: xValues, y: yValues, type: 'scatter', mode: 'lines', line: { color: '#0079c1', width: 0.8 }, name: 'Population' };
+        const allShapes = [...getNightShapes(xValues), ...getWeekendShapes(xValues)];
         const layout = {
           title: { text: title, font: { size: 14 } },
           margin: { t: 30, r: 20, l: 40, b: 30 },
-          xaxis: { 
-            type: 'date',
-            tickformat: '%b %d'
-          },
-          yaxis: { 
-            title: 'Pop',
-            fixedrange: false 
-          },
+          xaxis: { type: 'date', tickformat: '%b %d' },
+          yaxis: { title: 'Pop', fixedrange: false },
           showlegend: false,
-          shapes: weekendShapes,
+          shapes: allShapes,
           autosize: true,
           hovermode: 'closest'
         };
-
-        const config = { 
-          responsive: true, 
-          displayModeBar: true,
-          displaylogo: false,
-          modeBarButtonsToRemove: ['lasso2d', 'select2d']
-        };
-
+        const config = { responsive: true, displayModeBar: true, displaylogo: false, modeBarButtonsToRemove: ['lasso2d', 'select2d'] };
         Plotly.newPlot(ui.chartDiv, [trace], layout, config);
       }
 
-      // 6. Full Year Logic
       ui.btnFullYear.addEventListener("click", async () => {
         if (!currentCountyFips || !currentCbgFips) return;
-
         ui.btnFullYear.disabled = true;
         ui.monthSelect.disabled = true; 
         ui.btnFullYear.textContent = "Loading...";
@@ -1106,12 +926,10 @@
         try {
           const promises = months.map(m => {
             const url = DATA_URL_TEMPLATE.replace("{MM}", m).replace("{COUNTY_FIPS}", currentCountyFips);
-            return fetch(url)
-              .then(res => {
+            return fetch(url).then(res => {
                 if(!res.ok) throw new Error(`Missing ${m}`);
                 return res.arrayBuffer();
-              })
-              .then(buffer => {
+              }).then(buffer => {
                 const text = pako.inflate(new Uint8Array(buffer), { to: 'string' });
                 return { month: m, text: text };
               });
@@ -1122,12 +940,9 @@
 
           results.forEach(res => {
             Papa.parse(res.text, {
-              header: true,
-              skipEmptyLines: true,
+              header: true, skipEmptyLines: true,
               complete: function(parsed) {
-                // Find rows for all selected CBGs
                 const rows = parsed.data.filter(r => currentCbgFips.includes(r.CBG) || currentCbgFips.includes(r["﻿CBG"]));
-                
                 if (rows.length > 0) {
                   parsed.meta.fields.forEach(field => {
                     if (field.includes("2022-")) {
@@ -1135,16 +950,9 @@
                        let hasData = false;
                        rows.forEach(row => {
                            const val = parseFloat(row[field]);
-                           if(!isNaN(val)) {
-                               sum += val;
-                               hasData = true;
-                           }
+                           if(!isNaN(val)) { sum += val; hasData = true; }
                        });
-
-                       if (hasData) {
-                         fullYearX.push(field);
-                         fullYearY.push(sum);
-                       }
+                       if (hasData) { fullYearX.push(field); fullYearY.push(sum); }
                     }
                   });
                 }
@@ -1154,17 +962,12 @@
 
           const combined = fullYearX.map((date, i) => ({ date, val: fullYearY[i] }));
           combined.sort((a, b) => new Date(a.date) - new Date(b.date));
-
           const sortedX = combined.map(c => c.date);
           const sortedY = combined.map(c => c.val);
-
-          const title = currentCbgFips.length > 1 
-            ? `Total Population (${currentCbgFips.length} CBGs): Full Year 2022`
-            : "Population: Full Year 2022";
+          const title = currentCbgFips.length > 1 ? `Total Population (${currentCbgFips.length} CBGs): Full Year 2022` : "Population: Full Year 2022";
 
           renderChart(sortedX, sortedY, title);
           ui.btnFullYear.textContent = "Full Year Loaded";
-
         } catch (err) {
           console.error(err);
           alert("Error loading full year: " + err.message);
@@ -1175,6 +978,32 @@
           showLoading(false);
         }
       });
+
+      const resizer = document.getElementById("panelResizer");
+      const panel = document.getElementById("infoPanel");
+      let startY, startHeight;
+
+      resizer.addEventListener("mousedown", initDrag, false);
+      function initDrag(e) {
+         startY = e.clientY;
+         startHeight = parseInt(document.defaultView.getComputedStyle(panel).height, 10);
+         document.documentElement.addEventListener('mousemove', doDrag, false);
+         document.documentElement.addEventListener('mouseup', stopDrag, false);
+         document.body.style.userSelect = "none";
+      }
+      function doDrag(e) {
+         const newHeight = startHeight - (e.clientY - startY);
+         if (newHeight > 150 && newHeight < window.innerHeight * 0.8) {
+             panel.style.height = newHeight + 'px';
+             view.padding = { bottom: newHeight, right: 0 };
+         }
+      }
+      function stopDrag(e) {
+         document.documentElement.removeEventListener('mousemove', doDrag, false);
+         document.documentElement.removeEventListener('mouseup', stopDrag, false);
+         document.body.style.userSelect = "";
+         if (ui.chartDiv) Plotly.Plots.resize(ui.chartDiv);
+      }
 
       function showLoading(show, text = "Loading...") {
         ui.loading.style.display = show ? "flex" : "none";
