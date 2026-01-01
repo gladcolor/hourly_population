@@ -40,7 +40,7 @@ These contains functions for Jupyter notebooks.
 
 # To do
 
-- Investigation of large outbounds (negative hourly population), probably IPF without constraints.
+- Investigation of large outbounds (negative hourly population), probably IPF without constraints. 
 - Use different origin distributions, e.g., weekday, weekend, lunch time, dinner time...
 - Collect more dynamic population benchmarks to assess the hourly population. 
 - Comprehensive understanding of the estimated hourly population.
