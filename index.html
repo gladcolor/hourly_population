@@ -28,8 +28,8 @@
 
     #topBanner {
       flex: 0 0 auto;
-      min-height: 60px;
-      padding: 10px 0;
+      min-height: 45px; /* Reduced from 60px */
+      padding: 5px 0;   /* Reduced from 10px 0 */
       background: linear-gradient(135deg, #0079c1 0%, #004575 100%);
       color: white;
       display: flex;
@@ -45,16 +45,16 @@
 
     #topBanner h1 {
       margin: 0;
-      font-size: 1.4em;
+      font-size: 1.3em; /* Slightly smaller font to fit better */
       font-weight: 600;
       letter-spacing: 0.5px;
       line-height: 1.2;
     }
 
     #topBanner .subtitle {
-      font-size: 0.8em;
+      font-size: 0.75em; /* Slightly smaller font */
       font-weight: normal;
-      margin-top: 4px;
+      margin-top: 2px;
       opacity: 0.9;
     }
 
@@ -62,6 +62,10 @@
       color: #fff;
       text-decoration: underline;
       transition: opacity 0.2s;
+    }
+
+    #topBanner a:hover {
+      opacity: 0.8;
     }
 
     #viewDiv {
@@ -73,7 +77,7 @@
     /* Floating Events Panel */
     #eventsPanel {
       position: absolute;
-      top: 90px; /* Lifted closer to banner (was 130px) */
+      top: 70px; /* Adjusted up for shorter banner (was 90px) */
       right: 15px;
       width: 260px;
       background-color: white;
@@ -218,20 +222,21 @@
     .stat-label { font-weight: bold; color: #555; font-size: 0.9em; }
     .stat-value { color: #000; font-family: monospace; font-size: 0.95em; }
 
-    select { padding: 5px; border-radius: 3px; border: 1px solid #ccc; }
-    
-    .btn {
-      background-color: #0079c1;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      cursor: pointer;
-      border-radius: 3px;
-      font-size: 0.9em;
+    .btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
     }
-    .btn:disabled { background-color: #ccc; cursor: not-allowed; }
 
-    .hint-text { font-size: 0.8em; color: #666; margin-left: auto; font-style: italic; }
+    .hint-text {
+      font-size: 0.8em;
+      color: #666;
+      margin-left: auto; /* Push to right */
+      margin-right: 25px; /* Added right margin to move slightly left (~5 chars width) */
+      font-style: italic;
+      /* Ensure text doesn't overflow */
+      white-space: normal; 
+      max-width: 100%;
+    }
 
     /* Select Tool Button */
     #selectToolBtn, #selectPolygonBtn {
@@ -459,16 +464,16 @@
           </select>
         </div>
         <button id="btnFullYear" class="btn" disabled>Load Full Year</button>
-        <div class="hint-text" style="display: flex; align-items: center; gap: 15px;">
-           <div style="display: flex; align-items: center;" title="Light green background indicates weekends">
+        <div class="hint-text" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap; justify-content: flex-end;">
+           <div style="display: flex; align-items: center; white-space: nowrap;" title="Light green background indicates weekends">
               <span style="width: 14px; height: 14px; background-color: #90EE90; opacity: 0.5; margin-right: 5px; border: 1px solid #ddd;"></span>
               <span>Weekend</span>
            </div>
-           <div style="display: flex; align-items: center;" title="Light grey background indicates nighttime (7pm-7am)">
+           <div style="display: flex; align-items: center; white-space: nowrap;" title="Light grey background indicates nighttime (7pm-7am)">
               <span style="width: 14px; height: 14px; background-color: #e0e0e0; opacity: 0.5; margin-right: 5px; border: 1px solid #ddd;"></span>
               <span>Night (7PM-7AM)</span>
            </div>
-           <span id="plotHint">Use Select Tool for area. Hold Shift for multi-click.</span>
+           <span id="plotHint" style="white-space: nowrap;">Use Select Tool for area. Hold Shift for multi-click.</span>
         </div>
       </div>
       <div id="chartContainer">
@@ -1012,4 +1017,4 @@
     });
   </script>
 </body>
-</html>
+</html> 
