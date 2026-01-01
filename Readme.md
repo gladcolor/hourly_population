@@ -1,5 +1,5 @@
 
-This is the repository for the study of "Nationwide Hourly Population Mapping at the Neighborhood Scale in the United States Using Anchor-Calibrated Smartphone Mobility Data". More details will be released after the acception of the paper.
+This is the repository for the study of "Nationwide Hourly Population Estimating at the Neighborhood Scale in the United States Using Stable-Attendance Anchor  Calibration". More details will be released after the acception of the paper (Thanks for the research team: Huan Ning, Zhenlong Li, Manzhu Yu, Xiao Huang, Shiyan Zhang, Shan Qiao).
 
 Please contact the research team for any questions.
 
@@ -8,6 +8,11 @@ Please contact the research team for any questions.
 Link at Huggingface: [hourly_population_US](https://huggingface.co/datasets/gladcolor/hourly_population_US)
 
 The dataset contains hourly population for each US Census block groups in 2022, organized by county-month. 
+
+# Visualization website:
+[Fine-Grained US Hourly Population Map (2022)](https://gladcolor.github.io/hourly_population)
+![alt text](images/image.png)
+
 
 # Sourcecode file usage
 ## Data preprocessing
