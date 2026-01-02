@@ -10,8 +10,8 @@ This product has a lot of applications, such as environmental exposure assessmen
 Please contact the research team for any questions.
 
 # Visualization website:
-We strongly recommend you to use this website to take a look at the dataset! You can select any neighorhoods (Census block groups) to check their hourly populations and find interesting cases. For example, please check the local festivals your know, or the hot seasons of attractives. 3D animation is also 
-supported! 
+We strongly recommend you use this website to take a look at the dataset! You can select any neighborhoods (Census block groups) to check their hourly populations and find interesting cases. For example, please check the local festivals your know, or the hot seasons of attractives. 3D animation is also 
+supported!  
 
 Site link: [Fine-Grained US Hourly Population Map (2022)](https://gladcolor.github.io/hourly_population)
 ![alt text](images/image.png)
