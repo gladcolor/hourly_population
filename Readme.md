@@ -12,7 +12,7 @@ The dataset contains hourly population for each US Census block groups in 2022, 
 # Visualization website:
 [Fine-Grained US Hourly Population Map (2022)](https://gladcolor.github.io/hourly_population)
 ![alt text](images/image.png)
-
+![alt text](image.png)
 
 # Sourcecode file usage
 ## Data preprocessing
