@@ -15,11 +15,8 @@ supported!
 
 Site link: [Fine-Grained US Hourly Population Map (2022)](https://gladcolor.github.io/hourly_population)
 ![alt text](images/image.png)
-
-  
-<p align="center">
-  <video src="images/Manhattan_small.mp4" width="80%" controls></video>
-</p>
+ 
+<video src="https://github.com/user-attachments/assets/1dcef656-7ac8-4ab3-8e26-c6fb47b1bcc9" width="100px" controls></video> 
 
 # Link of dataset
 Link at Huggingface: [hourly_population_US](https://huggingface.co/datasets/gladcolor/hourly_population_US)
