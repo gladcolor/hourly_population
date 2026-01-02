@@ -918,15 +918,16 @@
                   const height = (val / animationMaxVal) * 5000;
                   const safeHeight = height < 20 ? 20 : height;
                   
-                  let color = "#e6f4ff";
-                  if (val > animationMaxVal * 0.1) color = "#64b5f6";
-                  if (val > animationMaxVal * 0.3) color = "#0079c1";
-                  if (val > animationMaxVal * 0.6) color = "#003052";
+                  // Color Ramp: Blue -> Purple -> Red
+                  let color = "#2196F3"; // Low (Blue)
+                  if (val > animationMaxVal * 0.1) color = "#9C27B0"; // Purple
+                  if (val > animationMaxVal * 0.3) color = "#E91E63"; // Pink/Red
+                  if (val > animationMaxVal * 0.6) color = "#D32F2F"; // Deep Red
 
                   const sym = g.symbol.clone();
                   const sl = sym.symbolLayers.getItemAt(0);
                   sl.height = safeHeight;
-                  sl.width = 66; // Changed from 100 to 66
+                  sl.width = 66; 
                   sl.material = { color: color };
                   g.symbol = sym;
               }
@@ -1025,9 +1026,9 @@
                       symbolLayers: [{
                           type: "object",
                           resource: { primitive: "cylinder" },
-                          width: 66, // Changed from 100 to 66
+                          width: 66, 
                           height: 10, 
-                          material: { color: "#e6f4ff" },
+                          material: { color: "#2196F3" }, // Initialize with Blue
                           anchor: "bottom"
                       }]
                   }
