@@ -5,6 +5,9 @@ import numpy as np
 from scipy import signal
 import datetime
 import matplotlib.lines as mlines
+import matplotlib.dates as mdates
+from scipy.signal import find_peaks, peak_widths
+
 
 spring_months = [2,3,4,5]
 fall_months = [9,10,11]
@@ -616,3 +619,173 @@ def ranking_weeks(school_hourly_df):
     ranked_week_df = ranked_week_df.query("visit_scaling_factor <= 7")
 
     return ranked_week_df, day_to_week_df, day_df, school_hourly_df
+
+
+
+def plot_hourly_with_context(
+    s,
+    ax=None,
+    title=None,
+    show_day_of_month=True,
+    weekend_color="lightgreen",
+    night_color="lightgrey",
+    weekend_alpha=0.25,
+    night_alpha=0.25
+):
+    """
+    Plot an hourly time series with:
+      - weekend shading (Sat–Sun)
+      - nighttime shading (7 PM – 7 AM)
+
+    Parameters
+    ----------
+    s : pandas.Series
+        Hourly time series with DatetimeIndex
+    ax : matplotlib.axes.Axes, optional
+        Existing axis to draw on
+    title : str, optional
+        Plot title
+    show_day_of_month : bool
+        If True, x-axis labels show day-of-month
+    """
+
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(12, 6))
+
+    # Ensure datetime index
+    s = s.copy()
+    s.index = pd.to_datetime(s.index)
+
+    # ---- Plot data ----
+    ax.plot(s.index, s.values, zorder=3)
+
+    # ---- Fix x-limits early ----
+    ax.set_xlim(s.index.min(), s.index.max())
+
+    # ---- Generate daily range ----
+    days = pd.date_range(
+        s.index.min().normalize(),
+        s.index.max().normalize(),
+        freq="D"
+    )
+
+    # ---- Weekend shading (Sat–Sun) ----
+    for d in days:
+        if d.weekday() == 5:  # Saturday
+            ax.axvspan(
+                d,
+                d + pd.Timedelta(days=2),
+                color=weekend_color,
+                alpha=weekend_alpha,
+                zorder=0
+            )
+
+    # ---- Nighttime shading (7 PM – 7 AM) ----
+    for d in days:
+        night_start = d + pd.Timedelta(hours=19)
+        night_end   = d + pd.Timedelta(days=1, hours=7)
+
+        ax.axvspan(
+            night_start,
+            night_end,
+            color=night_color,
+            alpha=night_alpha,
+            zorder=1
+        )
+
+    # ---- X-axis formatting ----
+    ax.xaxis.set_major_locator(mdates.DayLocator(interval=1))
+    if show_day_of_month:
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%d'))
+    else:
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+
+    ax.autoscale(enable=False, axis='x')
+
+    # ---- Labels ----
+    ax.set_xlabel("Date")
+    if title:
+        ax.set_title(title)
+
+    return ax
+
+
+def detect_hourly_peaks(
+    s,
+    baseline=None,
+    min_prominence_ratio=5.0,
+    min_distance_hours=6,
+    min_height_quantile=0.99,
+    width_rel_height=0.5   # 0.5 = FWHM
+):
+    """
+    Detect significant peaks in an hourly population time series
+    and compute peak width / duration attributes.
+    """
+
+    s = s.dropna().copy()
+    s.index = pd.to_datetime(s.index)
+
+    values = s.values
+
+    # ---- Robust baseline ----
+    if baseline is None:
+        baseline = np.quantile(values, 0.75)
+
+    # ---- Thresholds ----
+    min_prominence = baseline * min_prominence_ratio
+    min_height = np.quantile(values, min_height_quantile)
+
+    # ---- Peak detection ----
+    peak_idx, properties = find_peaks(
+        values,
+        prominence=min_prominence,
+        distance=min_distance_hours,
+        height=min_height
+    )
+
+    if len(peak_idx) == 0:
+        return pd.DataFrame()
+
+    # ---- Width calculation (critical step) ----
+    widths, width_heights, left_ips, right_ips = peak_widths(
+        values,
+        peak_idx,
+        rel_height=width_rel_height
+    )
+
+    # ---- Core peak info ----
+    peaks_df = pd.DataFrame({
+        "time": s.index[peak_idx],
+        "index": peak_idx,
+        "value": values[peak_idx],
+    })
+
+    # ---- Add ALL find_peaks properties ----
+    for key, arr in properties.items():
+        peaks_df[key] = arr
+
+    # ---- Add width-related attributes ----
+    peaks_df["width_samples"] = widths
+    peaks_df["width_hours"] = widths          # hourly data → 1 sample = 1 hour
+    peaks_df["width_height"] = width_heights
+    peaks_df["left_ip"] = left_ips
+    peaks_df["right_ip"] = right_ips
+
+    # ---- Convert fractional indices to timestamps ----
+    peaks_df["event_start_time"] = s.index[np.floor(left_ips).astype(int)]
+    peaks_df["event_end_time"] = s.index[np.ceil(right_ips).astype(int)]
+    peaks_df["event_duration_hours"] = (
+        peaks_df["event_end_time"] - peaks_df["event_start_time"]
+    ).dt.total_seconds() / 3600
+
+    # ---- Contextual metadata ----
+    peaks_df["baseline"] = baseline
+    peaks_df["relative_height"] = peaks_df["value"] / baseline
+    peaks_df["hour"] = peaks_df["time"].dt.hour
+    peaks_df["weekday"] = peaks_df["time"].dt.weekday
+    peaks_df["is_weekend"] = peaks_df["weekday"] >= 5
+
+    return peaks_df.sort_values("time").reset_index(drop=True)
+
+

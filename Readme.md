@@ -64,7 +64,9 @@ These contains functions for Jupyter notebooks.
 - Investigation of large outbounds (negative hourly population), probably due to IPF without constraints, outdated Census baseline data, and inappropriate origin device distribution. 
 - Use different origin distributions, e.g., weekday, weekend, lunch time, dinner time...
 - Collect more dynamic population benchmarks to assess the hourly population. 
+- Study the anchor places other than high schools, such as workplaces and residential neighorhoods. Some Census block groups has stable daily device-event patterns.
 - Comprehensive understanding of the estimated hourly population.
+- Investigate the device-event patters among local civil events. E.g., the observation scaling factors (k) in the local events; we can compair the device and ping count during the local event period with the the "normal" device and ping count beyond the event.
 
 
 

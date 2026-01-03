@@ -1,3 +1,8 @@
+conda activate geo
+cd "D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\github\hourly_population"
+d:
+python event_detection.py --month 8
+
 git remote add origin https://github.com/gladcolor/hourly_population.git
 git branch -M master
 git push -u origin master
