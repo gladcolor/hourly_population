@@ -61,8 +61,8 @@ These contains functions for Jupyter notebooks.
 
 # To do
 
-- Investigation of large outbounds (negative hourly population), probably due to IPF without constraints, outdated Census baseline data, and inappropriate origin device distribution. 
-- Use different origin distributions, e.g., weekday, weekend, lunch time, dinner time...
+- Investigation of large outbounds (negative hourly population), probably due to IPF without constraints, outdated Census baseline data, and inappropriate origin device distribution. E.g., the current algorithm used the monthly accumulative device origin distribution, e.g., the a resident may go many places in a month, but will be only at a place in a hour. Thus, the algrithm "assume" that the resident "appears" in all places at a hour; the resident "over commits" at a single hour. 
+- Use different origin distributions, e.g., weekday, weekend, lunch time, dinner time...Weekly Patterns dataset provides these distributions, but we need a sophisticated mechanism to use them appropriated. 
 - Collect more dynamic population benchmarks to assess the hourly population. 
 - Study the anchor places other than high schools, such as workplaces and residential neighorhoods. Some Census block groups has stable daily device-event patterns.
 - Comprehensive understanding of the estimated hourly population.
