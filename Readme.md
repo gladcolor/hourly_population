@@ -67,6 +67,7 @@ These contains functions for Jupyter notebooks.
 - Study the anchor places other than high schools, such as workplaces and residential neighorhoods. Some Census block groups has stable daily device-event patterns.
 - Comprehensive understanding of the estimated hourly population.
 - Investigate the device-event patters among local civil events. E.g., the observation scaling factors (k) in the local events; we can compair the device and ping count during the local event period with the the "normal" device and ping count beyond the event.
+- Investigate the device-event patterns during the driving, traffic jam, urban events (e.g., concerts, sports games, festivals, protests, disasters, etc.). Urban Events may significantly change the human mobility patterns, thus affecting the estimation accuracy.
 
 
 
