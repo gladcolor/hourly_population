@@ -659,7 +659,7 @@ def adjust_stop_by_dwelling_time(np_df, adjust_dwell_time=True, clean_negative=T
     # print("sum of hourly_stop_arr before negative removal:", hourly_stop_arr.sum().sum())
     if clean_negative:
         hourly_stop_arr = np.abs(hourly_stop_arr)
-    print("Stop factor: ", stop_factor)
+    # print("Stop factor: ", stop_factor)
     return hourly_stop_arr * stop_factor
 
 def split_customer_home_city(sp_df):  # for Spend Patterns

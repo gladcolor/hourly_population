@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import duckdb
 from tqdm import tqdm
+import random
 
 import Advan_operator as ad_op
 
@@ -122,13 +123,13 @@ def process_cbg_yearly_plot(CBG, year, con, save_dir, show_plot=False, override=
                     ax.axvspan(day + pd.Timedelta(hours=0), day + pd.Timedelta(hours=6), color='lightgrey', alpha=0.3)
                     ax.axvspan(day + pd.Timedelta(hours=19), day + pd.Timedelta(hours=24), color='lightgrey', alpha=0.3)
 
-                # Draw typical stop horizontal line (99.5th percentile of weekday 11AM stop counts)
+                # Draw typical stop horizontal line (95th percentile of weekday 12PM stop counts)
                 typical_stop = None
                 k_factor = None
-                weekday_11am_cols = [col for col in stop_CBG_df.columns if col.hour == 11 and col.dayofweek < 5]
+                weekday_11am_cols = [col for col in stop_CBG_df.columns if col.hour == 12 and col.dayofweek < 5]
                 if len(weekday_11am_cols) > 0:
                     weekday_11am_values = stop_CBG_df[weekday_11am_cols].values.flatten()
-                    typical_stop = np.percentile(weekday_11am_values, 99.5)
+                    typical_stop = np.percentile(weekday_11am_values, 95, method='closest_observation')
                     ax.axhline(y=typical_stop, color='orange', linestyle='--', lw=1)
                     # Add text label under the line at left end
                     xlim = ax.get_xlim()
@@ -213,15 +214,21 @@ def process_all_cbgs_yearly(year, parquet_dir, save_dir, cbg_list=None, override
         cbg_list = [str(row[0]) for row in con.fetchall()]
 
     # Process each CBG
+    cbg_list = cbg_list[::-1] # Reverse order for processing
+    # shuffle the list to distribute load
+    random.shuffle(cbg_list)
     results = []
     for i, CBG in enumerate(tqdm(cbg_list, desc=f"Processing CBGs for {year}")):
+    
         result = process_cbg_yearly_plot(CBG, year, con, save_dir, show_plot=False, override=override)
         if result is not None:
             results.append(result)
 
         # Garbage collect every 100 CBGs to prevent memory buildup
         if (i + 1) % 100 == 0:
+            print(f"Processed {i + 1} CBGs, {CBG}, performing garbage collection...")
             gc.collect()
+
 
     # Close connection
     con.close()
@@ -239,6 +246,7 @@ if __name__ == "__main__":
     parquet_dir = r'D:\Data\Advan\dewey-downloads\neighborhood-patterns_parquets'
     save_dir = r'D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\event_detection_raw_events'
     override = False  # Set to True to override existing plot files
+    # override = True  # Set to True to override existing plot files
 
     print(f"\n{'='*60}")
     print(f"Processing all CBGs for {year} (12 months per plot)")

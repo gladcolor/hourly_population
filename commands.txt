@@ -1,4 +1,9 @@
 conda activate geo
+cd D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\github\hourly_population
+d:
+python Check_neighboorhood_mobility.py
+
+conda activate geo
 cd "D:\OneDrive_Emory\OneDrive - Emory\Research_doc\hourly_population\github\hourly_population"
 d:
 python event_detection.py --month 8
